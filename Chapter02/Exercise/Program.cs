@@ -8,10 +8,32 @@ namespace Exercise {
     class Program {
         static void Main(string[] args) {
 
-            Song[] songs = new Song[3];
-            songs[0] = new Song("夜に駆ける", "YOASOBI", 180);
-            songs[1] = new Song("もう少しだけ", "YOASOBI", 200);
-            songs[2] = new Song("怪物", "YOASOBI", 150);
+            /*
+            List<Song> songs = new List<Song>();
+            var song1 = new Song("夜に駆ける", "YOASOBI", 180);
+            songs.Add(song1);
+
+            var song2 = new Song("もう少しだけ", "YOASOBI", 200);      
+            songs.Add(song2);
+
+            var song3 = new Song("怪物", "YOASOBI", 150);
+            songs.Add(song3);
+            */
+
+
+            var songs = new Song[] {
+                new Song("夜に駆ける", "YOASOBI", 180),
+                new Song("もう少しだけ", "YOASOBI", 200),
+                new Song("怪物", "YOASOBI", 150),
+            };
+
+            PrintSongs(songs);
+        }
+
+        private static void PrintSongs(Song[] songs) {
+            foreach (var song in songs) {
+                Console.WriteLine("{0}_{1}_{2}:{3}",song.Title,song.ArtistName,song.Length/60,song.Length%60);
+            }
         }
     }
 }
