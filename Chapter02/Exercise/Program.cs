@@ -32,9 +32,8 @@ namespace Exercise {
 
         private static void PrintSongs(Song[] songs) {
             foreach (var song in songs) {
-                var t = TimeSpan.FromSeconds(song.Length);
-                var time = (int)t.TotalMinutes + "：" + t.Seconds;
-                Console.WriteLine("{0}_{1}_{2}",song.Title,song.ArtistName,time);
+                Console.WriteLine("{0}_{1}_{2:m\\:ss}",
+                    song.Title,song.ArtistName,TimeSpan.FromSeconds(song.Length));
             }
         }
     }
