@@ -50,7 +50,10 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_4(List<string> names) {
-
+            var query = names.Where(s => s.StartsWith("B")).Select(s => s.Length);
+            foreach(var n in query) {
+                Console.WriteLine(n);
+            }
         }
     }
 }
