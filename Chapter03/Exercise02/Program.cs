@@ -43,16 +43,16 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_3(List<string> names) {
-            var list = names.Where(s => s.Contains("o")).ToList();
+            var list = names.Where(s => s.Contains("o")).ToArray(); //配列として抽出
             foreach(var n in list) {
                 Console.WriteLine(n);
             }
         }
 
         private static void Exercise2_4(List<string> names) {
-            var query = names.Where(s => s.StartsWith("B")).Select(s => s.Length);
-            foreach(var n in query) {
-                Console.WriteLine(n);
+            var selected = names.Where(s => s.StartsWith("B")).Select(s=> new { s.Length,s});
+            foreach(var name in selected) {
+                Console.WriteLine(name.Length + name.s);
             }
         }
     }
