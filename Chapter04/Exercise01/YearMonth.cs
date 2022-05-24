@@ -19,7 +19,7 @@ namespace Exercise01 {
         //4.1.2
         public bool Is21Century {
             get {
-                return 2001 <= Year && Year >= 2100;
+                return 2001 <= Year && Year <= 2100;
             }
         }
 
