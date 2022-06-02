@@ -36,15 +36,20 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_3(int[] numbers) {
-            
+            foreach (var num in numbers.Select(n=>n.ToString())) {
+                Console.WriteLine(num);
+            }
         }
 
         private static void Exercise1_4(int[] numbers) {
-
+            foreach (var num in numbers.OrderBy(n=>n).Take(3)){
+                Console.WriteLine(num);
+            }
         }
 
         private static void Exercise1_5(int[] numbers) {
-
+            var number = numbers.Distinct().Where(n => n > 10).Count();
+            Console.WriteLine(number+"個");
         }
     }
 }
