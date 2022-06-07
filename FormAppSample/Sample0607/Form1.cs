@@ -10,25 +10,21 @@ using System.Windows.Forms;
 
 namespace Sample0607 {
     public partial class Form1 : Form {
+
+        private int min;
+        private int max;
+
         public Form1() {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e) {
-            if (int.Parse(tbNum2.Text) == 0 || numUD2.Value == 0) {
-                MessageBox.Show("0除算はできません", "エラー",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            } else {
-                tbAns.Text = (int.Parse(tbNum1.Text) / int.Parse(tbNum2.Text)).ToString();
-                tbMod.Text = (int.Parse(tbNum1.Text) % int.Parse(tbNum2.Text)).ToString();
+        private void btRandom_Click(object sender, EventArgs e) {
 
-                numAns.Value = numUD1.Value / numUD2.Value;
-                numMod.Value = numUD1.Value % numUD2.Value;
-            }
-        }
-
-        private void label2_Click(object sender, EventArgs e) {
-
+            min = (int)minNum.Value;
+            max = (int)maxNum.Value;
+            
+            var rand = new Random();
+            Number.Value = rand.Next(min,max+1);
         }
     }
 }
