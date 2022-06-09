@@ -31,10 +31,8 @@ namespace NumberGame {
             this.radioButton10 = new System.Windows.Forms.RadioButton();
             this.radioButton50 = new System.Windows.Forms.RadioButton();
             this.radioButton100 = new System.Windows.Forms.RadioButton();
-            this.changeButton = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.settingCheck = new System.Windows.Forms.CheckBox();
-            this.checkButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nuNum)).BeginInit();
             this.SuspendLayout();
             // 
@@ -87,6 +85,7 @@ namespace NumberGame {
             this.radioButton10.TabStop = true;
             this.radioButton10.Text = "1～10まで";
             this.radioButton10.UseVisualStyleBackColor = true;
+            this.radioButton10.CheckedChanged += new System.EventHandler(this.radioButton10_CheckedChanged);
             // 
             // radioButton50
             // 
@@ -99,6 +98,7 @@ namespace NumberGame {
             this.radioButton50.TabStop = true;
             this.radioButton50.Text = "1～50まで";
             this.radioButton50.UseVisualStyleBackColor = true;
+            this.radioButton50.CheckedChanged += new System.EventHandler(this.radioButton50_CheckedChanged);
             // 
             // radioButton100
             // 
@@ -111,16 +111,18 @@ namespace NumberGame {
             this.radioButton100.TabStop = true;
             this.radioButton100.Text = "1～100まで";
             this.radioButton100.UseVisualStyleBackColor = true;
+            this.radioButton100.CheckedChanged += new System.EventHandler(this.radioButton100_CheckedChanged);
             // 
-            // changeButton
+            // settingCheck
             // 
-            this.changeButton.Location = new System.Drawing.Point(798, 249);
-            this.changeButton.Name = "changeButton";
-            this.changeButton.Size = new System.Drawing.Size(75, 23);
-            this.changeButton.TabIndex = 5;
-            this.changeButton.Text = "変更";
-            this.changeButton.UseVisualStyleBackColor = true;
-            this.changeButton.Click += new System.EventHandler(this.changeButton_Click);
+            this.settingCheck.AutoSize = true;
+            this.settingCheck.Location = new System.Drawing.Point(746, 34);
+            this.settingCheck.Name = "settingCheck";
+            this.settingCheck.Size = new System.Drawing.Size(72, 16);
+            this.settingCheck.TabIndex = 7;
+            this.settingCheck.Text = "詳細設定";
+            this.settingCheck.UseVisualStyleBackColor = true;
+            this.settingCheck.CheckedChanged += new System.EventHandler(this.settingCheck_CheckedChanged);
             // 
             // label2
             // 
@@ -132,36 +134,14 @@ namespace NumberGame {
             this.label2.TabIndex = 6;
             this.label2.Text = "答え";
             // 
-            // settingCheck
-            // 
-            this.settingCheck.AutoSize = true;
-            this.settingCheck.Location = new System.Drawing.Point(746, 34);
-            this.settingCheck.Name = "settingCheck";
-            this.settingCheck.Size = new System.Drawing.Size(72, 16);
-            this.settingCheck.TabIndex = 7;
-            this.settingCheck.Text = "詳細設定";
-            this.settingCheck.UseVisualStyleBackColor = true;
-            // 
-            // checkButton
-            // 
-            this.checkButton.Location = new System.Drawing.Point(824, 27);
-            this.checkButton.Name = "checkButton";
-            this.checkButton.Size = new System.Drawing.Size(75, 23);
-            this.checkButton.TabIndex = 8;
-            this.checkButton.Text = "決定";
-            this.checkButton.UseVisualStyleBackColor = true;
-            this.checkButton.Click += new System.EventHandler(this.checkButton_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(935, 450);
-            this.Controls.Add(this.checkButton);
             this.Controls.Add(this.settingCheck);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.changeButton);
             this.Controls.Add(this.radioButton100);
             this.Controls.Add(this.radioButton50);
             this.Controls.Add(this.radioButton10);
@@ -187,10 +167,8 @@ namespace NumberGame {
         private System.Windows.Forms.RadioButton radioButton10;
         private System.Windows.Forms.RadioButton radioButton50;
         private System.Windows.Forms.RadioButton radioButton100;
-        private System.Windows.Forms.Button changeButton;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox settingCheck;
-        private System.Windows.Forms.Button checkButton;
+        private System.Windows.Forms.Label label2;
     }
 }
 
