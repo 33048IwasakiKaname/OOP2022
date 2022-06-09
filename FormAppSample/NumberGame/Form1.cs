@@ -39,7 +39,7 @@ namespace NumberGame {
             ans = random.Next(1, 50);
 
             //デバッグ用答え
-            label2.Text = ans.ToString();
+            debug();
 
             //ラジオボタンデフォルトチェック
             radioButton50.Checked = true;
@@ -49,21 +49,21 @@ namespace NumberGame {
         private void radioButton10_CheckedChanged(object sender, EventArgs e) {
             label1.Text = "1～10の中から当ててね";
             ans = random.Next(1, 10); //乱数生成
-            label2.Text = ans.ToString(); //デバッグ用答え
+            debug();
         }
 
         //1～50までのラジオボタン判定
         private void radioButton50_CheckedChanged(object sender, EventArgs e) {
             label1.Text = "1～50の中から当ててね";
             ans = random.Next(1, 50); //乱数生成
-            label2.Text = ans.ToString(); //デバッグ用答え
+            debug();
         }
 
         //1～100までのラジオボタン判定
         private void radioButton100_CheckedChanged(object sender, EventArgs e) {
             label1.Text = "1～100の中から当ててね";
             ans = random.Next(1, 100); //乱数生成
-            label2.Text = ans.ToString(); //デバッグ用答え
+            debug();
         }
 
         //詳細設定の表示・非表示
@@ -77,6 +77,10 @@ namespace NumberGame {
                 radioButton50.Visible = false;
                 radioButton100.Visible = false;
             }
+        }
+
+        private void debug() {
+            label2.Text = ans.ToString(); //デバッグ用答え
         }
     }
 }
