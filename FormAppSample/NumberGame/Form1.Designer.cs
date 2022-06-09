@@ -85,6 +85,7 @@ namespace NumberGame {
             this.radioButton10.TabStop = true;
             this.radioButton10.Text = "1～10まで";
             this.radioButton10.UseVisualStyleBackColor = true;
+            this.radioButton10.Visible = false;
             this.radioButton10.CheckedChanged += new System.EventHandler(this.radioButton10_CheckedChanged);
             // 
             // radioButton50
@@ -98,6 +99,7 @@ namespace NumberGame {
             this.radioButton50.TabStop = true;
             this.radioButton50.Text = "1～50まで";
             this.radioButton50.UseVisualStyleBackColor = true;
+            this.radioButton50.Visible = false;
             this.radioButton50.CheckedChanged += new System.EventHandler(this.radioButton50_CheckedChanged);
             // 
             // radioButton100
@@ -111,6 +113,7 @@ namespace NumberGame {
             this.radioButton100.TabStop = true;
             this.radioButton100.Text = "1～100まで";
             this.radioButton100.UseVisualStyleBackColor = true;
+            this.radioButton100.Visible = false;
             this.radioButton100.CheckedChanged += new System.EventHandler(this.radioButton100_CheckedChanged);
             // 
             // settingCheck

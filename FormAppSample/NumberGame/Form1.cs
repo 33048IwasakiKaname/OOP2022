@@ -27,18 +27,14 @@ namespace NumberGame {
             if (ans == num) {
                 labelAns.Text = "正解！";
             } else if(ans > num) {
-                labelAns.Text = "もっと大きいよ";
+                labelAns.Text = "あれ？もっと大きいよ？";
             } else {
-                labelAns.Text = "もっと小さいよ";
+                labelAns.Text = "あれ？もっと小さいよ？";
             }           
         }
 
         //初期設定
         private void Form1_Load(object sender, EventArgs e) {
-            radioButton10.Visible = false;
-            radioButton50.Visible = false;
-            radioButton100.Visible = false;
-
             //乱数生成
             ans = random.Next(1, 50);
 
