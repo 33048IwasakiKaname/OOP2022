@@ -33,13 +33,75 @@ namespace AddressBook {
                 Address = tbAddress.Text,
                 Company = tbCompany.Text,
                 Picture = pbPicture.Image,
+                listGroup = GetCheckBoxGroup(),
             };
             listPerson.Add(newPerson);
 
         }
 
+        //チェックボックスにセットされている値をリストとして取り出す
+        private List<Person.GroupType> GetCheckBoxGroup() {
+            var listGroup = new List<Person.GroupType>();
+
+            if (cbFamily.Checked)
+                listGroup.Add(Person.GroupType.家族);
+            if (cbFriend.Checked)
+                listGroup.Add(Person.GroupType.友人);
+            if (cbWork.Checked)
+                listGroup.Add(Person.GroupType.仕事);
+            if (cbOther.Checked)
+                listGroup.Add(Person.GroupType.その他);
+
+
+            return listGroup;
+        }
+
+
         private void btPictureClear_Click(object sender, EventArgs e) {
             pbPicture.Image = null;
+        }
+
+        //データグリッドビューをクリックした時のイベントハンドラ
+        private void dgvPersons_Click(object sender, EventArgs e) {
+
+            //インデックス取得
+            var index = dgvPersons.CurrentCell.RowIndex;
+
+            //テキストボックスへ表示
+            tbName.Text = listPerson[index].Name;
+            tbMailAddress.Text = listPerson[index].MailAddress;
+            tbAddress.Text = listPerson[index].Address;
+            tbCompany.Text = listPerson[index].Company;
+            pbPicture.Image = listPerson[index].Picture;
+
+            clear_check();
+
+            foreach (var check in listPerson[index].listGroup) {
+
+                switch (check) {
+                    case Person.GroupType.家族:
+                        cbFamily.Checked = true;
+                        break;
+                    case Person.GroupType.友人:
+                        cbFriend.Checked = true;
+                        break;
+                    case Person.GroupType.仕事:
+                        cbWork.Checked = true;
+                        break;
+                    case Person.GroupType.その他:
+                        cbOther.Checked = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void clear_check() {
+            cbFamily.Checked = false;
+            cbFriend.Checked = false;
+            cbWork.Checked = false;
+            cbOther.Checked = false;
         }
     }
 }

@@ -100,16 +100,19 @@ namespace AddressBook {
             // dgvPersons
             // 
             this.dgvPersons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPersons.Location = new System.Drawing.Point(32, 417);
+            this.dgvPersons.Location = new System.Drawing.Point(19, 417);
+            this.dgvPersons.MultiSelect = false;
             this.dgvPersons.Name = "dgvPersons";
             this.dgvPersons.RowTemplate.Height = 21;
-            this.dgvPersons.Size = new System.Drawing.Size(864, 243);
+            this.dgvPersons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvPersons.Size = new System.Drawing.Size(768, 243);
             this.dgvPersons.TabIndex = 1;
+            this.dgvPersons.Click += new System.EventHandler(this.dgvPersons_Click);
             // 
             // tbName
             // 
             this.tbName.Font = new System.Drawing.Font("MS UI Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.tbName.Location = new System.Drawing.Point(255, 35);
+            this.tbName.Location = new System.Drawing.Point(232, 35);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(334, 36);
             this.tbName.TabIndex = 2;
@@ -117,7 +120,7 @@ namespace AddressBook {
             // tbMailAddress
             // 
             this.tbMailAddress.Font = new System.Drawing.Font("MS UI Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.tbMailAddress.Location = new System.Drawing.Point(255, 100);
+            this.tbMailAddress.Location = new System.Drawing.Point(232, 101);
             this.tbMailAddress.Name = "tbMailAddress";
             this.tbMailAddress.Size = new System.Drawing.Size(334, 36);
             this.tbMailAddress.TabIndex = 2;
@@ -125,7 +128,7 @@ namespace AddressBook {
             // tbAddress
             // 
             this.tbAddress.Font = new System.Drawing.Font("MS UI Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.tbAddress.Location = new System.Drawing.Point(255, 153);
+            this.tbAddress.Location = new System.Drawing.Point(232, 153);
             this.tbAddress.Multiline = true;
             this.tbAddress.Name = "tbAddress";
             this.tbAddress.Size = new System.Drawing.Size(335, 99);
@@ -134,7 +137,7 @@ namespace AddressBook {
             // tbCompany
             // 
             this.tbCompany.Font = new System.Drawing.Font("MS UI Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.tbCompany.Location = new System.Drawing.Point(255, 273);
+            this.tbCompany.Location = new System.Drawing.Point(232, 273);
             this.tbCompany.Name = "tbCompany";
             this.tbCompany.Size = new System.Drawing.Size(334, 36);
             this.tbCompany.TabIndex = 2;
@@ -186,7 +189,7 @@ namespace AddressBook {
             // btAddPerson
             // 
             this.btAddPerson.Font = new System.Drawing.Font("MS UI Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btAddPerson.Location = new System.Drawing.Point(714, 335);
+            this.btAddPerson.Location = new System.Drawing.Point(627, 324);
             this.btAddPerson.Name = "btAddPerson";
             this.btAddPerson.Size = new System.Drawing.Size(117, 56);
             this.btAddPerson.TabIndex = 4;
@@ -196,7 +199,7 @@ namespace AddressBook {
             // 
             // pbPicture
             // 
-            this.pbPicture.Location = new System.Drawing.Point(686, 35);
+            this.pbPicture.Location = new System.Drawing.Point(607, 35);
             this.pbPicture.Name = "pbPicture";
             this.pbPicture.Size = new System.Drawing.Size(164, 188);
             this.pbPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -205,7 +208,7 @@ namespace AddressBook {
             // 
             // btPictureOpen
             // 
-            this.btPictureOpen.Location = new System.Drawing.Point(686, 229);
+            this.btPictureOpen.Location = new System.Drawing.Point(607, 229);
             this.btPictureOpen.Name = "btPictureOpen";
             this.btPictureOpen.Size = new System.Drawing.Size(75, 23);
             this.btPictureOpen.TabIndex = 6;
@@ -215,7 +218,7 @@ namespace AddressBook {
             // 
             // btPictureClear
             // 
-            this.btPictureClear.Location = new System.Drawing.Point(775, 229);
+            this.btPictureClear.Location = new System.Drawing.Point(696, 229);
             this.btPictureClear.Name = "btPictureClear";
             this.btPictureClear.Size = new System.Drawing.Size(75, 23);
             this.btPictureClear.TabIndex = 6;
@@ -231,7 +234,7 @@ namespace AddressBook {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(917, 672);
+            this.ClientSize = new System.Drawing.Size(817, 672);
             this.Controls.Add(this.btPictureClear);
             this.Controls.Add(this.btPictureOpen);
             this.Controls.Add(this.pbPicture);
