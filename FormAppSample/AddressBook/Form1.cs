@@ -64,6 +64,8 @@ namespace AddressBook {
         //データグリッドビューをクリックした時のイベントハンドラ
         private void dgvPersons_Click(object sender, EventArgs e) {
 
+            if(dgvPersons.CurrentCell == null) return;
+
             //インデックス取得
             var index = dgvPersons.CurrentCell.RowIndex;
 
