@@ -26,7 +26,9 @@ namespace AddressBook {
              
         }
 
+        //データ追加
         private void btAddPerson_Click(object sender, EventArgs e) {
+
             Person newPerson = new Person() {
                 Name = tbName.Text,
                 MailAddress = tbMailAddress.Text,
@@ -35,7 +37,12 @@ namespace AddressBook {
                 Picture = pbPicture.Image,
                 listGroup = GetCheckBoxGroup(),
             };
-            listPerson.Add(newPerson);
+
+            if (tbName.Text != "") {
+                listPerson.Add(newPerson);
+                btClear.Enabled = true;
+                btUpdate.Enabled = true;
+            }
 
         }
 
@@ -102,6 +109,57 @@ namespace AddressBook {
         //チェックボックスをクリア
         private void clear_check() {
             cbFamily.Checked = cbFriend.Checked = cbWork.Checked = cbOther.Checked = false;
+        }
+
+        //更新ボタンが押されたときの処理
+        private void btUpdate_Click(object sender, EventArgs e) {
+
+            //インデックス取得
+            var index = dgvPersons.CurrentCell.RowIndex;
+
+            listPerson[index].Name = tbName.Text;
+            listPerson[index].MailAddress = tbMailAddress.Text;
+            listPerson[index].Address = tbAddress.Text;
+            listPerson[index].Company = tbCompany.Text;
+            listPerson[index].listGroup = GetCheckBoxGroup();
+            listPerson[index].Picture = pbPicture.Image;
+
+            //データグリッドビューの再描画
+            dgvPersons.Invalidate();
+        }
+
+        //行を削除するときの処理
+        private void btClear_Click(object sender, EventArgs e) {
+
+            //インデックス取得
+            var index = dgvPersons.CurrentCell.RowIndex;
+
+            if (listPerson.Count >= 0 && index-1 >= 0) {
+
+                //行削除
+                listPerson.RemoveAt(index);
+
+                //テキストボックスへ表示
+                tbName.Text = listPerson[index - 1].Name;
+                tbMailAddress.Text = listPerson[index - 1].MailAddress;
+                tbAddress.Text = listPerson[index - 1].Address;
+                tbCompany.Text = listPerson[index - 1].Company;
+                pbPicture.Image = listPerson[index - 1].Picture;
+
+                
+            } else{
+                tbName.Text = null;
+                tbMailAddress.Text = null;
+                tbAddress.Text = null;
+                tbCompany.Text = null;
+                pbPicture.Image = null;
+
+                listPerson.RemoveAt(index);
+                btClear.Enabled = false;
+                btUpdate.Enabled = false;
+            }
+
+            
         }
     }
 }
