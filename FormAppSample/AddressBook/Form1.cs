@@ -97,11 +97,9 @@ namespace AddressBook {
             }
         }
 
+        //チェックボックスをクリア
         private void clear_check() {
-            cbFamily.Checked = false;
-            cbFriend.Checked = false;
-            cbWork.Checked = false;
-            cbOther.Checked = false;
+            cbFamily.Checked = cbFriend.Checked = cbWork.Checked = cbOther.Checked = false;
         }
     }
 }
