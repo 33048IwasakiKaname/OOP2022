@@ -10,9 +10,7 @@ namespace Test01 {
             _score = ReadScore(filePath);
         }
 
-
-        //メソッドの概要： 
-        //点数のデータを読み込み、Studentオブジェクトのリストに返す
+        //メソッドの概要：点数のデータを読み込み、Studentオブジェクトのリストに返す 
         private static IEnumerable<Student> ReadScore(string filePath) {
             
             List<Student> students = new List<Student>();
@@ -30,12 +28,11 @@ namespace Test01 {
 
         }
 
-        //メソッドの概要： 
+        //メソッドの概要：科目別の点数を求める
         public IDictionary<string, int> GetPerStudentScore() {
 
             var dict = new Dictionary<string, int>();
-
-            //科目別の点数を集計
+          
             foreach (var student in _score) {
                 if (dict.ContainsKey(student.Subject))
                     dict[student.Subject] += student.Score;
