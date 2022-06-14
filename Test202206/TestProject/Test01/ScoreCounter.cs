@@ -12,20 +12,21 @@ namespace Test01 {
 
 
         //メソッドの概要： 
+        //点数のデータを読み込み、Studentオブジェクトのリストに返す
         private static IEnumerable<Student> ReadScore(string filePath) {
-
-            List<Student> sales = new List<Student>();
+            
+            List<Student> students = new List<Student>();
             string[] lines = File.ReadAllLines(filePath);
             foreach (string line in lines) {
                 string[] items = line.Split(',');
-                Student sale = new Student {
+                Student student = new Student {
                     Name = items[0],
                     Subject = items[1],
                     Score = int.Parse(items[2])
                 };
-                sales.Add(sale);
+                students.Add(student);
             }
-            return sales;
+            return students;
 
         }
 
@@ -35,11 +36,11 @@ namespace Test01 {
             var dict = new Dictionary<string, int>();
 
             //科目別の点数を集計
-            foreach (var sale in _score) {
-                if (dict.ContainsKey(sale.Subject))
-                    dict[sale.Subject] += sale.Score;
+            foreach (var student in _score) {
+                if (dict.ContainsKey(student.Subject))
+                    dict[student.Subject] += student.Score;
                 else
-                    dict[sale.Subject] = sale.Score;
+                    dict[student.Subject] = student.Score;
             }
 
             return dict;
