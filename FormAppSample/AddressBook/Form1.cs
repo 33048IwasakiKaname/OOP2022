@@ -14,6 +14,8 @@ namespace AddressBook {
         //住所データ管理用データ
         BindingList<Person> listPerson = new BindingList<Person>();
 
+        private int count = -1;
+
         public Form1() {
             InitializeComponent();
             dgvPersons.DataSource = listPerson;
@@ -39,11 +41,14 @@ namespace AddressBook {
             };
 
             if (tbName.Text != "") {
+                count++;
                 listPerson.Add(newPerson);
                 btClear.Enabled = true;
                 btUpdate.Enabled = true;
+                dgvPersons.CurrentCell = dgvPersons[0,count];               
             }
-
+            textBoxNull();
+            clear_check();
         }
 
         //チェックボックスにセットされている値をリストとして取り出す
@@ -58,7 +63,6 @@ namespace AddressBook {
                 listGroup.Add(Person.GroupType.仕事);
             if (cbOther.Checked)
                 listGroup.Add(Person.GroupType.その他);
-
 
             return listGroup;
         }
@@ -134,32 +138,39 @@ namespace AddressBook {
             //インデックス取得
             var index = dgvPersons.CurrentCell.RowIndex;
 
-            if (listPerson.Count >= 0 && index-1 >= 0) {
+            //行削除
+            listPerson.RemoveAt(index);
 
-                //行削除
-                listPerson.RemoveAt(index);
+            count--;
+
+            if (listPerson.Count > 0 ) {
 
                 //テキストボックスへ表示
-                tbName.Text = listPerson[index - 1].Name;
-                tbMailAddress.Text = listPerson[index - 1].MailAddress;
-                tbAddress.Text = listPerson[index - 1].Address;
-                tbCompany.Text = listPerson[index - 1].Company;
-                pbPicture.Image = listPerson[index - 1].Picture;
-
+                tbName.Text = listPerson[count].Name;
+                tbMailAddress.Text = listPerson[count].MailAddress;
+                tbAddress.Text = listPerson[count].Address;
+                tbCompany.Text = listPerson[count].Company;
+                pbPicture.Image = listPerson[count].Picture;
                 
             } else{
-                tbName.Text = null;
-                tbMailAddress.Text = null;
-                tbAddress.Text = null;
-                tbCompany.Text = null;
-                pbPicture.Image = null;
+                textBoxNull();
+                clear_check();
+                buttonEnabled();
+            }   
+        }
 
-                listPerson.RemoveAt(index);
-                btClear.Enabled = false;
-                btUpdate.Enabled = false;
-            }
+        //テキストボックスを空にする
+        private void textBoxNull() {
+            tbName.Text = null;
+            tbMailAddress.Text = null;
+            tbAddress.Text = null;
+            tbCompany.Text = null;
+            pbPicture.Image = null;
+        }
 
-            
+        private void buttonEnabled() {
+            btClear.Enabled = false;
+            btUpdate.Enabled = false;
         }
     }
 }
