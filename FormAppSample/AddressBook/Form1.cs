@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -52,23 +54,20 @@ namespace AddressBook {
                 listPerson.Add(newPerson);
                 btClear.Enabled = true;
                 btUpdate.Enabled = true;
-                dgvPersons.CurrentCell = dgvPersons[0,count];               
+                dgvPersons.CurrentCell = dgvPersons[0, count];
             }
 
-            //コンボボックスに登録済みかの判定
-            if (!cbCompany.Items.Contains(cbCompany.Text)) {
-                cbCompany.Items.Add(cbCompany.Text);
-            }
-
-            /*
-            idx = cbCompany.Items.IndexOf(cbCompany.Text);
-            if (idx == -1) {
-                cbCompany.Items.Add(cbCompany.Text);
-            }
-            */
-
+            setCbCompany(cbCompany.Text);
             textBoxNull();
             clear_check();
+        }
+
+        //コンボボックスに登録済みかの判定
+        private void setCbCompany(string company) {
+            
+            if (!cbCompany.Items.Contains(company)) {
+                cbCompany.Items.Add(cbCompany.Text);
+            }
         }
 
         //チェックボックスにセットされている値をリストとして取り出す
@@ -104,7 +103,6 @@ namespace AddressBook {
             tbName.Text = listPerson[index].Name;
             tbMailAddress.Text = listPerson[index].MailAddress;
             tbAddress.Text = listPerson[index].Address;
-            tbCompany.Text = listPerson[index].Company;
             pbPicture.Image = listPerson[index].Picture;
 
             clear_check();
@@ -144,7 +142,6 @@ namespace AddressBook {
             listPerson[index].Name = tbName.Text;
             listPerson[index].MailAddress = tbMailAddress.Text;
             listPerson[index].Address = tbAddress.Text;
-            listPerson[index].Company = tbCompany.Text;
             listPerson[index].listGroup = GetCheckBoxGroup();
             listPerson[index].Picture = pbPicture.Image;
 
@@ -169,7 +166,6 @@ namespace AddressBook {
                 tbName.Text = listPerson[count].Name;
                 tbMailAddress.Text = listPerson[count].MailAddress;
                 tbAddress.Text = listPerson[count].Address;
-                tbCompany.Text = listPerson[count].Company;
                 pbPicture.Image = listPerson[count].Picture;
                 
             } else{
@@ -184,7 +180,6 @@ namespace AddressBook {
             tbName.Text = null;
             tbMailAddress.Text = null;
             tbAddress.Text = null;
-            tbCompany.Text = null;
             pbPicture.Image = null;
             cbCompany.Text = null;
         }
@@ -192,6 +187,48 @@ namespace AddressBook {
         private void buttonEnabled() {
             btClear.Enabled = false;
             btUpdate.Enabled = false;
+        }
+
+        //保存ボタンのイベントハンドラ
+        private void btSave_Click(object sender, EventArgs e) {
+            if (sfdSaveDialog.ShowDialog() == DialogResult.OK) {
+
+                try {
+                    //バイナリー形式でシリアル化
+                    var bf = new BinaryFormatter();
+                    using (FileStream fs = File.Open(sfdSaveDialog.FileName,FileMode.Create)) {
+                        bf.Serialize(fs, listPerson);
+                    }
+                }
+                catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void btOpen_Click(object sender, EventArgs e) {
+            if (ofdFileOpenDialog.ShowDialog() == DialogResult.OK) {
+
+                try {
+                    //バイナリー形式でシリアル化
+                    var bf = new BinaryFormatter();
+
+                    using (FileStream fs = File.Open(ofdFileOpenDialog.FileName,FileMode.Open,FileAccess.Read)) {
+                        //逆シリアル化して読み込む
+                        listPerson = (BindingList<Person>) bf.Deserialize(fs);
+                        dgvPersons.DataSource = null;
+                        dgvPersons.DataSource = listPerson;
+                    }
+                }
+                catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            foreach (var item in listPerson.Select(p => p.Company)) {
+                //存在する会社を登録
+                setCbCompany(item);
+            }            
         }
     }
 }
