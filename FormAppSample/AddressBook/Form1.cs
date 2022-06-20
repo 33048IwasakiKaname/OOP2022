@@ -15,6 +15,7 @@ namespace AddressBook {
         BindingList<Person> listPerson = new BindingList<Person>();
 
         private int count = -1;
+        private int idx;
 
         public Form1() {
             InitializeComponent();
@@ -31,11 +32,17 @@ namespace AddressBook {
         //データ追加
         private void btAddPerson_Click(object sender, EventArgs e) {
 
+            //氏名が未入力なら登録しない
+            if (String.IsNullOrWhiteSpace(tbName.Text)) {
+                MessageBox.Show("氏名が入力されていません");
+                return;
+            }
+
             Person newPerson = new Person() {
                 Name = tbName.Text,
                 MailAddress = tbMailAddress.Text,
                 Address = tbAddress.Text,
-                Company = tbCompany.Text,
+                Company = cbCompany.Text,
                 Picture = pbPicture.Image,
                 listGroup = GetCheckBoxGroup(),
             };
@@ -47,6 +54,19 @@ namespace AddressBook {
                 btUpdate.Enabled = true;
                 dgvPersons.CurrentCell = dgvPersons[0,count];               
             }
+
+            //コンボボックスに登録済みかの判定
+            if (!cbCompany.Items.Contains(cbCompany.Text)) {
+                cbCompany.Items.Add(cbCompany.Text);
+            }
+
+            /*
+            idx = cbCompany.Items.IndexOf(cbCompany.Text);
+            if (idx == -1) {
+                cbCompany.Items.Add(cbCompany.Text);
+            }
+            */
+
             textBoxNull();
             clear_check();
         }
@@ -166,6 +186,7 @@ namespace AddressBook {
             tbAddress.Text = null;
             tbCompany.Text = null;
             pbPicture.Image = null;
+            cbCompany.Text = null;
         }
 
         private void buttonEnabled() {
