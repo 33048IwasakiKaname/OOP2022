@@ -17,7 +17,6 @@ namespace AddressBook {
         BindingList<Person> listPerson = new BindingList<Person>();
 
         private int count = -1;
-        private int idx;
 
         public Form1() {
             InitializeComponent();
@@ -52,8 +51,7 @@ namespace AddressBook {
             if (tbName.Text != "") {
                 count++;
                 listPerson.Add(newPerson);
-                btClear.Enabled = true;
-                btUpdate.Enabled = true;
+                buttonEnabledCheck();
                 dgvPersons.CurrentCell = dgvPersons[0, count];
             }
 
@@ -66,7 +64,7 @@ namespace AddressBook {
         private void setCbCompany(string company) {
             
             if (!cbCompany.Items.Contains(company)) {
-                cbCompany.Items.Add(cbCompany.Text);
+                cbCompany.Items.Add(company);
             }
         }
 
@@ -103,6 +101,7 @@ namespace AddressBook {
             tbName.Text = listPerson[index].Name;
             tbMailAddress.Text = listPerson[index].MailAddress;
             tbAddress.Text = listPerson[index].Address;
+            cbCompany.Text = listPerson[index].Company;
             pbPicture.Image = listPerson[index].Picture;
 
             clear_check();
@@ -142,6 +141,7 @@ namespace AddressBook {
             listPerson[index].Name = tbName.Text;
             listPerson[index].MailAddress = tbMailAddress.Text;
             listPerson[index].Address = tbAddress.Text;
+            listPerson[index].Company = cbCompany.Text;
             listPerson[index].listGroup = GetCheckBoxGroup();
             listPerson[index].Picture = pbPicture.Image;
 
@@ -161,17 +161,16 @@ namespace AddressBook {
             count--;
 
             if (listPerson.Count > 0 ) {
-
                 //テキストボックスへ表示
                 tbName.Text = listPerson[count].Name;
                 tbMailAddress.Text = listPerson[count].MailAddress;
                 tbAddress.Text = listPerson[count].Address;
-                pbPicture.Image = listPerson[count].Picture;
-                
+                cbCompany.Text = listPerson[count].Company;
+                pbPicture.Image = listPerson[count].Picture; 
             } else{
                 textBoxNull();
                 clear_check();
-                buttonEnabled();
+                buttonEnabledCheck();
             }   
         }
 
@@ -184,15 +183,14 @@ namespace AddressBook {
             cbCompany.Text = null;
         }
 
-        private void buttonEnabled() {
-            btClear.Enabled = false;
-            btUpdate.Enabled = false;
+        //ボタンをマスクする
+        private void buttonEnabledCheck() {
+            btClear.Enabled = btClear.Enabled = listPerson.Count() > 0 ? true : false;
         }
 
         //保存ボタンのイベントハンドラ
         private void btSave_Click(object sender, EventArgs e) {
             if (sfdSaveDialog.ShowDialog() == DialogResult.OK) {
-
                 try {
                     //バイナリー形式でシリアル化
                     var bf = new BinaryFormatter();
@@ -208,11 +206,9 @@ namespace AddressBook {
 
         private void btOpen_Click(object sender, EventArgs e) {
             if (ofdFileOpenDialog.ShowDialog() == DialogResult.OK) {
-
                 try {
                     //バイナリー形式でシリアル化
                     var bf = new BinaryFormatter();
-
                     using (FileStream fs = File.Open(ofdFileOpenDialog.FileName,FileMode.Open,FileAccess.Read)) {
                         //逆シリアル化して読み込む
                         listPerson = (BindingList<Person>) bf.Deserialize(fs);
@@ -228,7 +224,10 @@ namespace AddressBook {
             foreach (var item in listPerson.Select(p => p.Company)) {
                 //存在する会社を登録
                 setCbCompany(item);
-            }            
+            }
+
+            count += listPerson.Count();
+            buttonEnabledCheck();
         }
     }
 }
