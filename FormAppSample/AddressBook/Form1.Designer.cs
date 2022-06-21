@@ -48,6 +48,8 @@ namespace AddressBook {
             this.btOpen = new System.Windows.Forms.Button();
             this.btSave = new System.Windows.Forms.Button();
             this.sfdSaveDialog = new System.Windows.Forms.SaveFileDialog();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPersons)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPicture)).BeginInit();
             this.SuspendLayout();
@@ -286,11 +288,32 @@ namespace AddressBook {
             this.btSave.UseVisualStyleBackColor = true;
             this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label6.Location = new System.Drawing.Point(503, 677);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(107, 27);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "登録日：";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.dateTimePicker1.Location = new System.Drawing.Point(607, 675);
+            this.dateTimePicker1.MinDate = new System.DateTime(1759, 1, 1, 0, 0, 0, 0);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(189, 31);
+            this.dateTimePicker1.TabIndex = 10;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(817, 672);
+            this.ClientSize = new System.Drawing.Size(817, 728);
+            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.btSave);
             this.Controls.Add(this.btOpen);
             this.Controls.Add(this.cbCompany);
@@ -348,6 +371,8 @@ namespace AddressBook {
         private System.Windows.Forms.Button btOpen;
         private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.SaveFileDialog sfdSaveDialog;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }
 

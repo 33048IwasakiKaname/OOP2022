@@ -45,6 +45,7 @@ namespace AddressBook {
                 Address = tbAddress.Text,
                 Company = cbCompany.Text,
                 Picture = pbPicture.Image,
+                Registration = dateTimePicker1.Value,
                 listGroup = GetCheckBoxGroup(),
             };
 
@@ -104,6 +105,9 @@ namespace AddressBook {
             cbCompany.Text = listPerson[index].Company;
             pbPicture.Image = listPerson[index].Picture;
 
+            dateTimePicker1.Value =
+                listPerson[index].Registration.Year > 1900 ? listPerson[index].Registration : DateTime.Today;
+            
             clear_check();
 
             foreach (var check in listPerson[index].listGroup) {
@@ -144,6 +148,7 @@ namespace AddressBook {
             listPerson[index].Company = cbCompany.Text;
             listPerson[index].listGroup = GetCheckBoxGroup();
             listPerson[index].Picture = pbPicture.Image;
+            listPerson[index].Registration = dateTimePicker1.Value;
 
             //データグリッドビューの再描画
             dgvPersons.Invalidate();
@@ -222,6 +227,7 @@ namespace AddressBook {
                 }
             }
 
+            //コンボボックスのアイテム削除
             cbCompany.Items.Clear();
 
             foreach (var item in listPerson.Select(p => p.Company)) {
@@ -229,7 +235,7 @@ namespace AddressBook {
                 setCbCompany(item);
             }
 
-            count += listPerson.Count();
+            count = listPerson.Count()-1;
             buttonEnabledCheck();
         }
     }
