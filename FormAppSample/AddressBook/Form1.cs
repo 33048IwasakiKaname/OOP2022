@@ -62,7 +62,7 @@ namespace AddressBook {
 
         //コンボボックスに登録済みかの判定
         private void setCbCompany(string company) {
-            
+
             if (!cbCompany.Items.Contains(company)) {
                 cbCompany.Items.Add(company);
             }
@@ -185,7 +185,7 @@ namespace AddressBook {
 
         //ボタンをマスクする
         private void buttonEnabledCheck() {
-            btClear.Enabled = btClear.Enabled = listPerson.Count() > 0 ? true : false;
+            btClear.Enabled = btUpdate.Enabled = listPerson.Count() > 0 ? true : false;
         }
 
         //保存ボタンのイベントハンドラ
@@ -205,6 +205,7 @@ namespace AddressBook {
         }
 
         private void btOpen_Click(object sender, EventArgs e) {
+
             if (ofdFileOpenDialog.ShowDialog() == DialogResult.OK) {
                 try {
                     //バイナリー形式でシリアル化
@@ -220,6 +221,8 @@ namespace AddressBook {
                     MessageBox.Show(ex.Message);
                 }
             }
+
+            cbCompany.Items.Clear();
 
             foreach (var item in listPerson.Select(p => p.Company)) {
                 //存在する会社を登録
