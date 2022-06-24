@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AddressBook {
-    public partial class Form1 : Form {
+    public partial class Form : System.Windows.Forms.Form {
 
         //住所データ管理用データ
         BindingList<Person> listPerson = new BindingList<Person>();
 
         private int count = -1;
 
-        public Form1() {
+        public Form() {
             InitializeComponent();
             dgvPersons.DataSource = listPerson;
         }
@@ -26,8 +26,7 @@ namespace AddressBook {
         private void btPictureOpen_Click(object sender, EventArgs e) {
             if (ofdFileOpenDialog.ShowDialog() == DialogResult.OK) {
                 pbPicture.Image = Image.FromFile(ofdFileOpenDialog.FileName);
-            }
-             
+            }             
         }
 
         //データ追加
@@ -45,8 +44,10 @@ namespace AddressBook {
                 Address = tbAddress.Text,
                 Company = cbCompany.Text,
                 Picture = pbPicture.Image,
-                Registration = dateTimePicker1.Value,
                 listGroup = GetCheckBoxGroup(),
+                KindNumber = RadioButtonCheckGroup(),
+                Registration = dateTimePicker1.Value,
+                TelNumber = telNum.Text,   
             };
 
             if (tbName.Text != "") {
@@ -86,6 +87,20 @@ namespace AddressBook {
         }
 
 
+        private Person.KindNumberType RadioButtonCheckGroup() {
+
+            Person.KindNumberType selectedKindNumber = Person.KindNumberType.その他;
+
+            if (rbHome.Checked)
+                selectedKindNumber = Person.KindNumberType.自宅;
+            else if (rbMobile.Checked) {
+                selectedKindNumber = Person.KindNumberType.携帯;
+            }
+
+            return selectedKindNumber;
+        }
+
+
         private void btPictureClear_Click(object sender, EventArgs e) {
             pbPicture.Image = null;
         }
@@ -93,7 +108,7 @@ namespace AddressBook {
         //データグリッドビューをクリックした時のイベントハンドラ
         private void dgvPersons_Click(object sender, EventArgs e) {
 
-            if(dgvPersons.CurrentCell == null) return;
+            if (dgvPersons.CurrentCell == null) return;
 
             //インデックス取得
             var index = dgvPersons.CurrentCell.RowIndex;
@@ -104,10 +119,27 @@ namespace AddressBook {
             tbAddress.Text = listPerson[index].Address;
             cbCompany.Text = listPerson[index].Company;
             pbPicture.Image = listPerson[index].Picture;
+            telNum.Text = listPerson[index].TelNumber;
 
             dateTimePicker1.Value =
                 listPerson[index].Registration.Year > 1900 ? listPerson[index].Registration : DateTime.Today;
-            
+
+
+            GroupTypeCheck(index);
+            KindNumberCheck(index);
+        }
+
+        //番号種別チェック
+        private void KindNumberCheck(int index) {
+            if (listPerson[index].KindNumber == Person.KindNumberType.自宅) {
+                rbHome.Checked = true;
+            } else {
+                rbMobile.Checked = true;
+            };
+        }
+
+        //グループ別チェック
+        private void GroupTypeCheck(int index) {
             clear_check();
 
             foreach (var check in listPerson[index].listGroup) {
@@ -147,8 +179,10 @@ namespace AddressBook {
             listPerson[index].Address = tbAddress.Text;
             listPerson[index].Company = cbCompany.Text;
             listPerson[index].listGroup = GetCheckBoxGroup();
+            listPerson[index].KindNumber = RadioButtonCheckGroup();
             listPerson[index].Picture = pbPicture.Image;
             listPerson[index].Registration = dateTimePicker1.Value;
+            listPerson[index].TelNumber = telNum.Text;
 
             //データグリッドビューの再描画
             dgvPersons.Invalidate();
@@ -171,7 +205,8 @@ namespace AddressBook {
                 tbMailAddress.Text = listPerson[count].MailAddress;
                 tbAddress.Text = listPerson[count].Address;
                 cbCompany.Text = listPerson[count].Company;
-                pbPicture.Image = listPerson[count].Picture; 
+                pbPicture.Image = listPerson[count].Picture;
+                telNum.Text = listPerson[count].TelNumber;
             } else{
                 textBoxNull();
                 clear_check();
@@ -186,6 +221,7 @@ namespace AddressBook {
             tbAddress.Text = null;
             pbPicture.Image = null;
             cbCompany.Text = null;
+            telNum.Text = null;
         }
 
         //ボタンをマスクする
