@@ -13,7 +13,7 @@ namespace XmlSample {
                 var stream = wc.OpenRead("https://news.yahoo.co.jp/rss/topics/it.xml");
 
                 var xdoc = XDocument.Load(stream);
-                var xNews = xdoc.Root.Descendants("title");
+                var xNews = xdoc.Root.Descendants("item");
                 foreach (var data in xNews) {
                     Console.WriteLine(data);
                 }
