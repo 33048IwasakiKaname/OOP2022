@@ -17,6 +17,8 @@ namespace RssReader {
         IEnumerable<string> xTitle;
         IEnumerable<string> xLink;
 
+        private int index;
+
         public Form1() {
             InitializeComponent();
         }
@@ -47,9 +49,14 @@ namespace RssReader {
 
         //リストボックスをクリックした時のイベント
         private void ListBoxClick(object sender, EventArgs e) {
-            var index = lbRssTitle.SelectedIndex;
-   
-            wbBrowser.Navigate((string)linkList[index]);
+
+            index = lbRssTitle.SelectedIndex;
+            var url = xLink.ElementAt(index);
+
+            if (index != -1) {
+                //wbBrowser.Navigate((string)linkList[index]);
+                wvBrowser.Source = new Uri(url);
+            }
         }
 
         //アイテムをすべて削除
@@ -63,6 +70,21 @@ namespace RssReader {
             if (!cbRssUrl.Items.Contains(url)) {
                 cbRssUrl.Items.Add(url);
             }
+        }
+
+        //進むボタンを押したとき
+        private void btNext_Click(object sender, EventArgs e) {
+            wvBrowser.GoForward();          
+        }
+
+        //戻るボタンを押したとき
+        private void btBack_Click(object sender, EventArgs e) {
+            wvBrowser.GoBack();          
+        }
+
+        private void wvBrowser_NavigationCompleted(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.WebViewControlNavigationCompletedEventArgs e) {
+            btBack.Enabled = wvBrowser.CanGoBack;
+            btNext.Enabled = wvBrowser.CanGoForward;
         }
     }
 }
