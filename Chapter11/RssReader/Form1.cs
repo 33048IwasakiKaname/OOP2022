@@ -22,7 +22,11 @@ namespace RssReader {
         public Form1() {
             InitializeComponent();
         }
-        
+
+        private void Form1_Load(object sender, EventArgs e) {
+            BackForwardButtonMaskCheck();
+        }
+
         private void btRssGet_Click(object sender, EventArgs e) {
 
             clearItems();
@@ -30,6 +34,7 @@ namespace RssReader {
             var url = cbRssUrl.Text;
 
             using (var wc = new WebClient()) {
+
                 var stream = wc.OpenRead(url);
 
                 var xdoc = XDocument.Load(stream);
@@ -51,10 +56,9 @@ namespace RssReader {
         private void ListBoxClick(object sender, EventArgs e) {
 
             index = lbRssTitle.SelectedIndex;
-            var url = xLink.ElementAt(index);
-
+            
             if (index != -1) {
-                //wbBrowser.Navigate((string)linkList[index]);
+                var url = xLink.ElementAt(index);
                 wvBrowser.Source = new Uri(url);
             }
         }
@@ -83,6 +87,11 @@ namespace RssReader {
         }
 
         private void wvBrowser_NavigationCompleted(object sender, Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT.WebViewControlNavigationCompletedEventArgs e) {
+            BackForwardButtonMaskCheck();
+        }
+
+        private void BackForwardButtonMaskCheck() {
+            //進む、戻るボタン大マスク設定
             btBack.Enabled = wvBrowser.CanGoBack;
             btNext.Enabled = wvBrowser.CanGoForward;
         }
