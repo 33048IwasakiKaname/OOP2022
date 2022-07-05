@@ -70,7 +70,7 @@ namespace Exercise1 {
 
         private static void Exercise1_4(string file, string newfile) {
 
-            var element = new XElement("newfile",
+            var element = new XElement("ballsport",
                             new XElement("name","サッカー",new XAttribute("kanji", "蹴球")),
                             new XElement("teammembers",11),
                             new XElement("firstplayed",1863)
