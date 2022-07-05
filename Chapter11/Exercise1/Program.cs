@@ -19,6 +19,10 @@ namespace Exercise1 {
 
             var newfile = "sports.xml";
             Exercise1_4(file, newfile);
+
+            //確認用
+            var text = File.ReadAllText(newfile);
+            Console.WriteLine(text);
         }
 
 
@@ -52,14 +56,41 @@ namespace Exercise1 {
         private static void Exercise1_3(string file) {
             var xdoc = XDocument.Load(file);
 
-            var maxmember = xdoc.Root.Elements("teammembers").Max();
+            var xelements = xdoc.Root.Elements()
+                                    .Select(x => new { 
+                                        Name = (string)x.Element("name"),
+                                        Num = x.Element("teammembers")
+                                    })
+                                    .OrderByDescending(x=>x.Num.Value);
 
-            Console.WriteLine(maxmember.Elements("name"));
+            Console.WriteLine(xelements.First().Name);
+            
         }
 
 
         private static void Exercise1_4(string file, string newfile) {
 
+            var element = new XElement("newfile",
+                            new XElement("name","サッカー",new XAttribute("kanji", "蹴球")),
+                            new XElement("teammembers",11),
+                            new XElement("firstplayed",1863)
+                            );
+
+            var xdoc = XDocument.Load(file);
+            xdoc.Root.Add(element);
+            xdoc.Save(newfile);
+
+            //確認用
+            
+            /*
+            foreach (var xnovelist in xdoc.Root.Elements()) {
+                var name = xnovelist.Element("name");
+                var kanji = xnovelist.Element("name").Attribute("kanji");
+                var member = xnovelist.Element("teammembers");
+
+                Console.WriteLine("{0}({1})：{2}人",name.Value,kanji.Value,member.Value);
+            }
+            */
         }
     }
 }
