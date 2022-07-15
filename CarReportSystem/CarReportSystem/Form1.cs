@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,6 +20,7 @@ namespace CarReportSystem {
             dataGridView.DataSource = listCarReports;
         }
 
+        //追加ボタンが押されたとき
         private void btAdd_Click(object sender, EventArgs e) {
             CarReport newCarReport = new CarReport() {
                 Date = dateTimePicker.Value,
@@ -34,6 +37,40 @@ namespace CarReportSystem {
             setCbCarName(cbCarName.Text);
             textBoxNull();
 
+            dataGridView.CurrentCell = dataGridView[0,listCarReports.Count-1];
+
+        }
+
+        //修正ボタンが押されたとき
+        private void btUpdate_Click(object sender, EventArgs e) {
+
+            if (listCarReports.Count > 0) {
+                //インデックス取得
+                var index = dataGridView.CurrentCell.RowIndex;
+
+                listCarReports[index].Date = dateTimePicker.Value;
+                listCarReports[index].Auther = cbRecorderName.Text;
+                listCarReports[index].Maker = RadioButtonCheckGroup();
+                listCarReports[index].CarName = cbCarName.Text;
+                listCarReports[index].Report = tbReport.Text;
+                listCarReports[index].Picture = pictureBox.Image;
+
+                //データグリッドビューの再描画
+                dataGridView.Invalidate();
+            }
+        }
+
+        //削除ボタンが押されたとき
+        private void btDelete_Click(object sender, EventArgs e) {
+
+            if (listCarReports.Count > 0) {
+                //インデックス取得
+                var index = dataGridView.CurrentCell.RowIndex;
+
+                //行削除
+                listCarReports.RemoveAt(index);
+            }
+            buttonEnabledCheck();
         }
 
         //ラジオボタンチェック
@@ -56,8 +93,7 @@ namespace CarReportSystem {
             return selectedKindNumber;
         }
 
-
-            private void btFinish_Click(object sender, EventArgs e) {
+        private void btFinish_Click(object sender, EventArgs e) {
             Application.Exit();
         }
 
@@ -90,8 +126,8 @@ namespace CarReportSystem {
         }
 
         private void btPictureOpen_Click(object sender, EventArgs e) {
-            if (pictureOpenFileDialog.ShowDialog() == DialogResult.OK) {
-                pictureBox.Image = Image.FromFile(pictureOpenFileDialog.FileName);
+            if (OpenFileDialog.ShowDialog() == DialogResult.OK) {
+                pictureBox.Image = Image.FromFile(OpenFileDialog.FileName);
             }
         }
 
@@ -104,20 +140,84 @@ namespace CarReportSystem {
             cbRecorderName.Text = listCarReports[index].Auther;
             cbCarName.Text = listCarReports[index].CarName;
             tbReport.Text = listCarReports[index].Report;
+            pictureBox.Image = listCarReports[index].Picture;
             dateTimePicker.Value =
                 listCarReports[index].Date.Year > 1900 ? listCarReports[index].Date : DateTime.Today;
+            KindNumberCheck(index);
         }
 
-
-        //↓続き
-
         //メーカーチェック
-        //private void KindNumberCheck(int index) {
-        //    if (listCarReports[index].Maker == listCarReports.) {
-        //        rbHome.Checked = true;
-        //    } else {
-        //        rbMobile.Checked = true;
-        //    };
-        //}
+        private void KindNumberCheck(int index) {
+
+            if (listCarReports[index].Maker == CarReport.MakerGroup.トヨタ) {
+                rbToyota.Checked = true;
+            }else if (listCarReports[index].Maker == CarReport.MakerGroup.日産) {
+                rbNissan.Checked = true;
+            } else if (listCarReports[index].Maker == CarReport.MakerGroup.スバル) {
+                rbSubaru.Checked = true;
+            } else if (listCarReports[index].Maker == CarReport.MakerGroup.外国車) {
+                rbForeignCar.Checked = true;
+            } else if (listCarReports[index].Maker == CarReport.MakerGroup.その他) {
+                rbOther.Checked = true;
+            } 
+        }       
+
+        //写真削除
+        private void btPictureDelete_Click(object sender, EventArgs e) {
+            pictureBox.Image = null;
+        }
+
+        //ファイル保存
+        private void btSave_Click(object sender, EventArgs e) {
+            if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+                try {
+                    //バイナリー形式でシリアル化
+                    var bf = new BinaryFormatter();
+                    using (FileStream fs = File.Open(saveFileDialog.FileName, FileMode.Create)) {
+                        bf.Serialize(fs, listCarReports);
+                    }
+                }
+                catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        //ファイル開く
+        private void btOpen_Click(object sender, EventArgs e) {
+            if (OpenFileDialog.ShowDialog() == DialogResult.OK) {
+                try {
+                    //バイナリー形式でシリアル化
+                    var bf = new BinaryFormatter();
+                    using (FileStream fs = File.Open(OpenFileDialog.FileName, FileMode.Open, FileAccess.Read)) {
+                        //逆シリアル化して読み込む
+                        listCarReports = (BindingList<CarReport>)bf.Deserialize(fs);
+                        dataGridView.DataSource = null;
+                        dataGridView.DataSource = listCarReports;
+                    }
+                }
+                catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            buttonEnabledCheck();
+        }
+
+        //背景色の変更
+        private void colorChangeBackGround(object sender, EventArgs e) {
+            if (colorDialog.ShowDialog() == DialogResult.OK) {
+                BackColor = colorDialog.Color;
+            }
+        }
+
+        
+        //サイズ変更
+        private void btSizeChange_Click(object sender, EventArgs e) {
+            if (pictureBox.SizeMode == PictureBoxSizeMode.Zoom) {
+                pictureBox.SizeMode = PictureBoxSizeMode.Normal;
+            }
+            pictureBox.SizeMode++;
+        }
     }
 }
