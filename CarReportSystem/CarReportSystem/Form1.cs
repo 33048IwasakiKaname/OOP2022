@@ -9,15 +9,26 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace CarReportSystem {
     public partial class Form1 : Form {
+
+        private Settings settings = new Settings();
+
         //住所データ管理用データ
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
 
         public Form1() {
             InitializeComponent();
             dataGridView.DataSource = listCarReports;
+
+            using (var reader = XmlReader.Create("settings.xml")) {
+                var serializer = new XmlSerializer(typeof(Settings));
+                var settings = serializer.Deserialize(reader) as Settings;
+                BackColor = settings.MainFormColor;
+            };
         }
 
         //追加ボタンが押されたとき
@@ -204,20 +215,35 @@ namespace CarReportSystem {
             buttonEnabledCheck();
         }
 
-        //背景色の変更
-        private void colorChangeBackGround(object sender, EventArgs e) {
-            if (colorDialog.ShowDialog() == DialogResult.OK) {
-                BackColor = colorDialog.Color;
-            }
-        }
-
-        
         //サイズ変更
         private void btSizeChange_Click(object sender, EventArgs e) {
             if (pictureBox.SizeMode == PictureBoxSizeMode.Zoom) {
                 pictureBox.SizeMode = PictureBoxSizeMode.Normal;
             }
             pictureBox.SizeMode++;
+        }
+
+        //背景色の変更
+        private void colorChangeBackGround(object sender, EventArgs e) {
+            if (colorDialog.ShowDialog() == DialogResult.OK) {
+                BackColor = colorDialog.Color;
+              
+                settings.MainFormColor = BackColor;
+            }
+        }
+
+        //ファイルを閉じたときシリアル化
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+            var set = new XmlWriterSettings {
+                Encoding = new System.Text.UTF8Encoding(false),
+                Indent = true,
+                IndentChars = "  ",
+            };
+
+            using (var writer = XmlWriter.Create("settings.xml",set)) {
+                var serializer = new XmlSerializer(settings.GetType());
+                serializer.Serialize(writer, settings);
+            }
         }
     }
 }

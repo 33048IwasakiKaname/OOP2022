@@ -400,7 +400,7 @@ namespace CarReportSystem {
             // 
             this.色の変更ToolStripMenuItem.Name = "色の変更ToolStripMenuItem";
             this.色の変更ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.色の変更ToolStripMenuItem.Text = "背景色の変更";
+            this.色の変更ToolStripMenuItem.Text = "背景色の変更...";
             this.色の変更ToolStripMenuItem.Click += new System.EventHandler(this.colorChangeBackGround);
             // 
             // toolStripSeparator2
@@ -462,6 +462,7 @@ namespace CarReportSystem {
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "試乗レポートシステム";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.menuStrip1.ResumeLayout(false);
