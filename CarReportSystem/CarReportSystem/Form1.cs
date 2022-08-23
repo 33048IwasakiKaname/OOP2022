@@ -15,20 +15,22 @@ using System.Xml.Serialization;
 namespace CarReportSystem {
     public partial class Form1 : Form {
 
-        private Settings settings = new Settings();
+        Settings settings = new Settings();
 
         //住所データ管理用データ
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
 
         public Form1() {
             InitializeComponent();
-            dataGridView.DataSource = listCarReports;
+            dataGridView.DataSource = listCarReports;  
+        }
 
+        private void Form1_Load(object sender, EventArgs e) {
             using (var reader = XmlReader.Create("settings.xml")) {
                 var serializer = new XmlSerializer(typeof(Settings));
-                var settings = serializer.Deserialize(reader) as Settings;
-                BackColor = settings.MainFormColor;
-            };
+                settings = serializer.Deserialize(reader) as Settings;
+                BackColor = Color.FromArgb(settings.MainFormColor);
+            }
         }
 
         //追加ボタンが押されたとき
@@ -136,6 +138,7 @@ namespace CarReportSystem {
             tbReport.Text = null;
         }
 
+        //画像開くボタンが押されたとき
         private void btPictureOpen_Click(object sender, EventArgs e) {
             if (OpenFileDialog.ShowDialog() == DialogResult.OK) {
                 pictureBox.Image = Image.FromFile(OpenFileDialog.FileName);
@@ -144,6 +147,10 @@ namespace CarReportSystem {
 
         //データグリッドビューがクリックされたとき
         private void DataGridViewClick(object sender, EventArgs e) {
+
+            //データがあるかどうかを判断
+            if (dataGridView.CurrentCell == null) return;
+
             //インデックス取得
             var index = dataGridView.CurrentCell.RowIndex;
 
@@ -181,6 +188,7 @@ namespace CarReportSystem {
         //ファイル保存
         private void btSave_Click(object sender, EventArgs e) {
             if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+
                 try {
                     //バイナリー形式でシリアル化
                     var bf = new BinaryFormatter();
@@ -228,7 +236,7 @@ namespace CarReportSystem {
             if (colorDialog.ShowDialog() == DialogResult.OK) {
                 BackColor = colorDialog.Color;
               
-                settings.MainFormColor = BackColor;
+                settings.MainFormColor = colorDialog.Color.ToArgb();
             }
         }
 

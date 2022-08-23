@@ -248,9 +248,11 @@ namespace CarReportSystem {
             this.dataGridView.AllowUserToDeleteRows = false;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(109, 386);
+            this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowTemplate.Height = 21;
+            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(731, 286);
             this.dataGridView.TabIndex = 6;
             this.dataGridView.Click += new System.EventHandler(this.DataGridViewClick);
@@ -372,46 +374,46 @@ namespace CarReportSystem {
             // 開くToolStripMenuItem
             // 
             this.開くToolStripMenuItem.Name = "開くToolStripMenuItem";
-            this.開くToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.開くToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.開くToolStripMenuItem.Text = "開く...";
             this.開くToolStripMenuItem.Click += new System.EventHandler(this.btOpen_Click);
             // 
             // 保存ToolStripMenuItem
             // 
             this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
-            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.保存ToolStripMenuItem.Text = "保存...";
             this.保存ToolStripMenuItem.Click += new System.EventHandler(this.btSave_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(104, 6);
             // 
             // 設定ToolStripMenuItem
             // 
             this.設定ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.色の変更ToolStripMenuItem});
             this.設定ToolStripMenuItem.Name = "設定ToolStripMenuItem";
-            this.設定ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.設定ToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.設定ToolStripMenuItem.Text = "設定";
             // 
             // 色の変更ToolStripMenuItem
             // 
             this.色の変更ToolStripMenuItem.Name = "色の変更ToolStripMenuItem";
-            this.色の変更ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.色の変更ToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.色の変更ToolStripMenuItem.Text = "背景色の変更...";
             this.色の変更ToolStripMenuItem.Click += new System.EventHandler(this.colorChangeBackGround);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(104, 6);
             // 
             // 終了ToolStripMenuItem
             // 
             this.終了ToolStripMenuItem.Name = "終了ToolStripMenuItem";
-            this.終了ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.終了ToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.終了ToolStripMenuItem.Text = "終了";
             this.終了ToolStripMenuItem.Click += new System.EventHandler(this.btFinish_Click);
             // 
@@ -463,6 +465,7 @@ namespace CarReportSystem {
             this.Name = "Form1";
             this.Text = "試乗レポートシステム";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.menuStrip1.ResumeLayout(false);
