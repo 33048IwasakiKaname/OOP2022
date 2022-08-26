@@ -15,7 +15,7 @@ using System.Xml.Serialization;
 namespace CarReportSystem {
     public partial class Form1 : Form {
 
-        Settings settings = new Settings();
+        Settings settings = Settings.getInstance();
 
         //住所データ管理用データ
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
@@ -26,10 +26,23 @@ namespace CarReportSystem {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            using (var reader = XmlReader.Create("settings.xml")) {
-                var serializer = new XmlSerializer(typeof(Settings));
-                settings = serializer.Deserialize(reader) as Settings;
-                BackColor = Color.FromArgb(settings.MainFormColor);
+            //if (File.Exists("settings.xml")) {
+            //    using (var reader = XmlReader.Create("settings.xml")) {
+            //        var serializer = new XmlSerializer(typeof(Settings));
+            //        settings = serializer.Deserialize(reader) as Settings;
+            //        BackColor = Color.FromArgb(settings.MainFormColor);
+            //    }
+            //}
+
+            try {
+                using (var reader = XmlReader.Create("settings.xml")) {
+                    var serializer = new XmlSerializer(typeof(Settings));
+                    settings = serializer.Deserialize(reader) as Settings;
+                    BackColor = Color.FromArgb(settings.MainFormColor);
+                }
+            }
+            catch (Exception) {
+
             }
         }
 
@@ -248,7 +261,7 @@ namespace CarReportSystem {
                 IndentChars = "  ",
             };
 
-            using (var writer = XmlWriter.Create("settings.xml",set)) {
+            using (var writer = XmlWriter.Create("settings.xml", set)) {
                 var serializer = new XmlSerializer(settings.GetType());
                 serializer.Serialize(writer, settings);
             }
