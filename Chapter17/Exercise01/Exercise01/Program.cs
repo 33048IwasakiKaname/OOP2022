@@ -8,7 +8,7 @@ using TextFileProcessor;
 namespace Exercise01 {
     class Program {
         static void Main(string[] args) {
-            TextProcessor.Run<ToHankakuProcessor>(@"C: \Users\infosys\Desktop\Sample.txt");
+            TextProcessor.Run<ToHankakuProcessor>(@"C:\Users\infosys\Desktop\Sample.txt");
         }  
     }
 }
