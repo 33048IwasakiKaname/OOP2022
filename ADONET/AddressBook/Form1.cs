@@ -117,8 +117,12 @@ namespace AddressBook {
 
         //削除ボタン
         private void btClear_Click(object sender, EventArgs e) {
-            
-
+            tbName.Text = null;
+            tbAddress.Text = null;
+            tbTel.Text = null;
+            tbMail.Text = null;
+            tbMemo.Text = null;
+            pbImage.Image = null;
         }
 
         private void バージョン情報ToolStripMenuItem_Click(object sender, EventArgs e) {
