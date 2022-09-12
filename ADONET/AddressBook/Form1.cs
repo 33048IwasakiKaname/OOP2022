@@ -25,9 +25,19 @@ namespace AddressBook {
             pbImage.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
-        private void btConnect_Click(object sender, EventArgs e) {
-            // TODO: このコード行はデータを 'infosys202205DataSet.AddressTable' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
-            this.addressTableTableAdapter.Fill(this.infosys202205DataSet.AddressTable);
+        //データ追加
+        private void btAdd_Click(object sender, EventArgs e) {
+            DataRow newRow = infosys202205DataSet.AddressTable.NewRow();
+            newRow[1] = tbName.Text;
+            newRow[2] = tbAddress.Text;
+            newRow[3] = tbTel.Text;
+            newRow[4] = tbMail.Text;
+            newRow[5] = tbMemo.Text;
+            newRow[6] = ImageToByteArray(pbImage.Image);
+            //データセットへ新しいレコードを追加
+            infosys202205DataSet.AddressTable.Rows.Add(newRow);
+            //データベース更新
+            this.addressTableTableAdapter.Update(this.infosys202205DataSet.AddressTable);
         }
 
         //データ更新
@@ -62,6 +72,7 @@ namespace AddressBook {
             }
         }
 
+        //画像選択
         private void btImageOpen_Click(object sender, EventArgs e) {
             if(ofdImage.ShowDialog() == DialogResult.OK) {
                 pbImage.Image = System.Drawing.Image.FromFile(ofdImage.FileName);
@@ -69,6 +80,7 @@ namespace AddressBook {
 
         }
 
+        //画像削除
         private void btImageClear_Click(object sender, EventArgs e) {
             pbImage.Image = null;
         }
@@ -87,8 +99,30 @@ namespace AddressBook {
             return b;
         }
 
+        //エラー回避
         private void addressTableDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e) {
 
+        }
+
+        //名前検索
+        private void btNameSearch_Click(object sender, EventArgs e) {
+            addressTableTableAdapter.FillByName(infosys202205DataSet.AddressTable, tbSearchName.Text);
+        }
+
+        //データベース接続
+        private void データベース接続ToolStripMenuItem_Click(object sender, EventArgs e) {
+            // TODO: このコード行はデータを 'infosys202205DataSet.AddressTable' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
+            this.addressTableTableAdapter.Fill(this.infosys202205DataSet.AddressTable);
+        }
+
+        //削除ボタン
+        private void btClear_Click(object sender, EventArgs e) {
+            
+
+        }
+
+        private void バージョン情報ToolStripMenuItem_Click(object sender, EventArgs e) {
+            new Version().ShowDialog();
         }
     }
 }

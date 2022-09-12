@@ -46,19 +46,27 @@ namespace AddressBook {
             this.tbTel = new System.Windows.Forms.TextBox();
             this.tbMail = new System.Windows.Forms.TextBox();
             this.tbMemo = new System.Windows.Forms.TextBox();
-            this.btConnect = new System.Windows.Forms.Button();
             this.btUpdate = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
-            this.addressTableTableAdapter = new AddressBook.infosys202205DataSetTableAdapters.AddressTableTableAdapter();
-            this.tableAdapterManager = new AddressBook.infosys202205DataSetTableAdapters.TableAdapterManager();
             this.pbImage = new System.Windows.Forms.PictureBox();
             this.btImageOpen = new System.Windows.Forms.Button();
             this.btImageClear = new System.Windows.Forms.Button();
             this.ofdImage = new System.Windows.Forms.OpenFileDialog();
+            this.tbSearchName = new System.Windows.Forms.TextBox();
+            this.btNameSearch = new System.Windows.Forms.Button();
+            this.addressTableTableAdapter = new AddressBook.infosys202205DataSetTableAdapters.AddressTableTableAdapter();
+            this.tableAdapterManager = new AddressBook.infosys202205DataSetTableAdapters.TableAdapterManager();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.ファイルFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.データベース接続ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ヘルプToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btClear = new System.Windows.Forms.Button();
+            this.バージョン情報ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.addressTableDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.addressTableBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.infosys202205DataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // addressTableDataGridView
@@ -76,7 +84,7 @@ namespace AddressBook {
             this.dataGridViewTextBoxColumn6,
             this.Image});
             this.addressTableDataGridView.DataSource = this.addressTableBindingSource;
-            this.addressTableDataGridView.Location = new System.Drawing.Point(33, 320);
+            this.addressTableDataGridView.Location = new System.Drawing.Point(18, 397);
             this.addressTableDataGridView.MultiSelect = false;
             this.addressTableDataGridView.Name = "addressTableDataGridView";
             this.addressTableDataGridView.ReadOnly = true;
@@ -247,21 +255,10 @@ namespace AddressBook {
             this.tbMemo.Size = new System.Drawing.Size(520, 101);
             this.tbMemo.TabIndex = 2;
             // 
-            // btConnect
-            // 
-            this.btConnect.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btConnect.Location = new System.Drawing.Point(861, 528);
-            this.btConnect.Name = "btConnect";
-            this.btConnect.Size = new System.Drawing.Size(95, 47);
-            this.btConnect.TabIndex = 4;
-            this.btConnect.Text = "接続";
-            this.btConnect.UseVisualStyleBackColor = true;
-            this.btConnect.Click += new System.EventHandler(this.btConnect_Click);
-            // 
             // btUpdate
             // 
             this.btUpdate.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btUpdate.Location = new System.Drawing.Point(861, 475);
+            this.btUpdate.Location = new System.Drawing.Point(858, 609);
             this.btUpdate.Name = "btUpdate";
             this.btUpdate.Size = new System.Drawing.Size(95, 44);
             this.btUpdate.TabIndex = 4;
@@ -272,23 +269,13 @@ namespace AddressBook {
             // btAdd
             // 
             this.btAdd.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btAdd.Location = new System.Drawing.Point(861, 423);
+            this.btAdd.Location = new System.Drawing.Point(858, 415);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(95, 44);
             this.btAdd.TabIndex = 4;
             this.btAdd.Text = "追加";
             this.btAdd.UseVisualStyleBackColor = true;
-            this.btAdd.Click += new System.EventHandler(this.btUpdate_Click);
-            // 
-            // addressTableTableAdapter
-            // 
-            this.addressTableTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.AddressTableTableAdapter = this.addressTableTableAdapter;
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.UpdateOrder = AddressBook.infosys202205DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
             // pbImage
             // 
@@ -326,29 +313,113 @@ namespace AddressBook {
             // 
             this.ofdImage.FileName = "openFileDialog1";
             // 
+            // tbSearchName
+            // 
+            this.tbSearchName.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.tbSearchName.Location = new System.Drawing.Point(151, 347);
+            this.tbSearchName.Name = "tbSearchName";
+            this.tbSearchName.Size = new System.Drawing.Size(361, 34);
+            this.tbSearchName.TabIndex = 2;
+            // 
+            // btNameSearch
+            // 
+            this.btNameSearch.Location = new System.Drawing.Point(57, 358);
+            this.btNameSearch.Name = "btNameSearch";
+            this.btNameSearch.Size = new System.Drawing.Size(75, 23);
+            this.btNameSearch.TabIndex = 7;
+            this.btNameSearch.Text = "名前検索";
+            this.btNameSearch.UseVisualStyleBackColor = true;
+            this.btNameSearch.Click += new System.EventHandler(this.btNameSearch_Click);
+            // 
+            // addressTableTableAdapter
+            // 
+            this.addressTableTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.AddressTableTableAdapter = this.addressTableTableAdapter;
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.UpdateOrder = AddressBook.infosys202205DataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ファイルFToolStripMenuItem,
+            this.ヘルプToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(996, 24);
+            this.menuStrip1.TabIndex = 8;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // ファイルFToolStripMenuItem
+            // 
+            this.ファイルFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.データベース接続ToolStripMenuItem});
+            this.ファイルFToolStripMenuItem.Name = "ファイルFToolStripMenuItem";
+            this.ファイルFToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.ファイルFToolStripMenuItem.Text = "ファイル(&F)";
+            // 
+            // データベース接続ToolStripMenuItem
+            // 
+            this.データベース接続ToolStripMenuItem.Name = "データベース接続ToolStripMenuItem";
+            this.データベース接続ToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.データベース接続ToolStripMenuItem.Text = "データベース接続";
+            this.データベース接続ToolStripMenuItem.Click += new System.EventHandler(this.データベース接続ToolStripMenuItem_Click);
+            // 
+            // ヘルプToolStripMenuItem
+            // 
+            this.ヘルプToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.バージョン情報ToolStripMenuItem});
+            this.ヘルプToolStripMenuItem.Name = "ヘルプToolStripMenuItem";
+            this.ヘルプToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.ヘルプToolStripMenuItem.Text = "ヘルプ&H";
+            // 
+            // btClear
+            // 
+            this.btClear.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btClear.Location = new System.Drawing.Point(858, 465);
+            this.btClear.Name = "btClear";
+            this.btClear.Size = new System.Drawing.Size(95, 44);
+            this.btClear.TabIndex = 4;
+            this.btClear.Text = "削除";
+            this.btClear.UseVisualStyleBackColor = true;
+            this.btClear.Click += new System.EventHandler(this.btClear_Click);
+            // 
+            // バージョン情報ToolStripMenuItem
+            // 
+            this.バージョン情報ToolStripMenuItem.Name = "バージョン情報ToolStripMenuItem";
+            this.バージョン情報ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.バージョン情報ToolStripMenuItem.Text = "バージョン情報";
+            this.バージョン情報ToolStripMenuItem.Click += new System.EventHandler(this.バージョン情報ToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(983, 608);
+            this.ClientSize = new System.Drawing.Size(996, 685);
+            this.Controls.Add(this.btNameSearch);
             this.Controls.Add(this.btImageClear);
             this.Controls.Add(this.btImageOpen);
             this.Controls.Add(this.pbImage);
             this.Controls.Add(this.btAdd);
+            this.Controls.Add(this.btClear);
             this.Controls.Add(this.btUpdate);
-            this.Controls.Add(this.btConnect);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbMemo);
+            this.Controls.Add(this.tbSearchName);
             this.Controls.Add(this.tbMail);
             this.Controls.Add(this.tbTel);
             this.Controls.Add(this.tbAddress);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.addressTableDataGridView);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -356,6 +427,8 @@ namespace AddressBook {
             ((System.ComponentModel.ISupportInitialize)(this.addressTableBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.infosys202205DataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -385,7 +458,6 @@ namespace AddressBook {
         private System.Windows.Forms.TextBox tbTel;
         private System.Windows.Forms.TextBox tbMail;
         private System.Windows.Forms.TextBox tbMemo;
-        private System.Windows.Forms.Button btConnect;
         private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.Button btAdd;
         private System.Windows.Forms.DataGridViewImageColumn Image;
@@ -393,6 +465,14 @@ namespace AddressBook {
         private System.Windows.Forms.Button btImageOpen;
         private System.Windows.Forms.Button btImageClear;
         private System.Windows.Forms.OpenFileDialog ofdImage;
+        private System.Windows.Forms.TextBox tbSearchName;
+        private System.Windows.Forms.Button btNameSearch;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem ファイルFToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem データベース接続ToolStripMenuItem;
+        private System.Windows.Forms.Button btClear;
+        private System.Windows.Forms.ToolStripMenuItem ヘルプToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem バージョン情報ToolStripMenuItem;
     }
 }
 
