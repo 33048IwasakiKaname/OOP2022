@@ -26,6 +26,12 @@ namespace CarReportSystem {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+
+            //画像調整
+            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            // TODO: このコード行はデータを 'infosys202205DataSet.CarReportDB' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
+            this.carReportDBTableAdapter.Fill(this.infosys202205DataSet.CarReportDB);
             //if (File.Exists("settings.xml")) {
             //    using (var reader = XmlReader.Create("settings.xml")) {
             //        var serializer = new XmlSerializer(typeof(Settings));
@@ -46,44 +52,69 @@ namespace CarReportSystem {
             }
         }
 
-        //追加ボタンが押されたとき
+        //追加ボタンが押されたとき(DB〇)
         private void btAdd_Click(object sender, EventArgs e) {
-            CarReport newCarReport = new CarReport() {
-                Date = dateTimePicker.Value,
-                Auther = cbRecorderName.Text,
-                Maker = RadioButtonCheckGroup(),
-                CarName = cbCarName.Text,
-                Report = tbReport.Text,
-                Picture = pictureBox.Image,
-            };
+            //CarReport newCarReport = new CarReport() {
+            //    Date = dateTimePicker.Value,
+            //    Auther = cbRecorderName.Text,
+            //    Maker = RadioButtonCheckGroup(),
+            //    CarName = cbCarName.Text,
+            //    Report = tbReport.Text,
+            //    Picture = pictureBox.Image,
+            //};
 
-            listCarReports.Add(newCarReport);
+            //listCarReports.Add(newCarReport);
+
+            DataRow newRow = infosys202205DataSet.CarReportDB.NewRow();
+            newRow[1] = dateTimePicker.Value;
+            newRow[2] = cbRecorderName.Text;
+            newRow[3] = RadioButtonCheckGroup();
+            newRow[4] = cbCarName.Text;
+            newRow[5] = tbReport.Text;
+            newRow[6] = pictureBox.Image;
+            //データセットへ新しいレコードを追加
+            infosys202205DataSet.CarReportDB.Rows.Add(newRow);
+            //データベース更新
+            this.carReportDBTableAdapter.Update(this.infosys202205DataSet.CarReportDB);
+
             buttonEnabledCheck();
             setCbRecorder(cbRecorderName.Text);
             setCbCarName(cbCarName.Text);
             textBoxNull();
 
-            dataGridView.CurrentCell = dataGridView[0,listCarReports.Count-1];
-
         }
 
-        //修正ボタンが押されたとき
+        //修正ボタンが押されたとき(DB〇)
         private void btUpdate_Click(object sender, EventArgs e) {
 
-            if (listCarReports.Count > 0) {
-                //インデックス取得
-                var index = dataGridView.CurrentCell.RowIndex;
+            //if (listCarReports.Count > 0) {
+            //    //インデックス取得
+            //    var index = dataGridView.CurrentCell.RowIndex;
 
-                listCarReports[index].Date = dateTimePicker.Value;
-                listCarReports[index].Auther = cbRecorderName.Text;
-                listCarReports[index].Maker = RadioButtonCheckGroup();
-                listCarReports[index].CarName = cbCarName.Text;
-                listCarReports[index].Report = tbReport.Text;
-                listCarReports[index].Picture = pictureBox.Image;
+            //    listCarReports[index].Date = dateTimePicker.Value;
+            //    listCarReports[index].Auther = cbRecorderName.Text;
+            //    listCarReports[index].Maker = RadioButtonCheckGroup();
+            //    listCarReports[index].CarName = cbCarName.Text;
+            //    listCarReports[index].Report = tbReport.Text;
+            //    listCarReports[index].Picture = pictureBox.Image;
 
-                //データグリッドビューの再描画
-                dataGridView.Invalidate();
-            }
+            //    //データグリッドビューの再描画
+            //    dataGridView.Invalidate();
+            //}
+
+
+            //データグリッドビューの選択レコードを各テキストボックスへ設定
+            carReportDBDataGridView.CurrentRow.Cells[1].Value = dateTimePicker.Value;
+            carReportDBDataGridView.CurrentRow.Cells[2].Value = cbRecorderName.Text;
+            carReportDBDataGridView.CurrentRow.Cells[3].Value = RadioButtonCheckGroup();
+            carReportDBDataGridView.CurrentRow.Cells[4].Value = cbCarName.Text;
+            carReportDBDataGridView.CurrentRow.Cells[5].Value = tbReport.Text;
+            carReportDBDataGridView.CurrentRow.Cells[6].Value = pictureBox.Image;
+
+            //保存
+            this.Validate();
+            this.carReportDBBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.infosys202205DataSet);
         }
 
         //削除ボタンが押されたとき
@@ -236,7 +267,9 @@ namespace CarReportSystem {
             buttonEnabledCheck();
         }
 
+
         //サイズ変更
+
         private void btSizeChange_Click(object sender, EventArgs e) {
             if (pictureBox.SizeMode == PictureBoxSizeMode.Zoom) {
                 pictureBox.SizeMode = PictureBoxSizeMode.Normal;
@@ -265,6 +298,40 @@ namespace CarReportSystem {
                 var serializer = new XmlSerializer(settings.GetType());
                 serializer.Serialize(writer, settings);
             }
+        }
+
+        private void carReportDBBindingNavigatorSaveItem_Click(object sender, EventArgs e) {
+            this.Validate();
+            this.carReportDBBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.infosys202205DataSet);
+
+        }
+
+        private void carReportDBDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+
+        }
+
+
+        //データベースグリッドビューをクリックしたとき
+        private void carReportDBDataGridView_Click(object sender, EventArgs e) {
+
+            dateTimePicker.Value = DateTime.Parse(carReportDBDataGridView.CurrentRow.Cells[1].Value.ToString());
+            cbRecorderName.Text = carReportDBDataGridView.CurrentRow.Cells[2].Value.ToString();
+            RadioButtonCheckGroup();
+            cbCarName.Text = carReportDBDataGridView.CurrentRow.Cells[4].Value.ToString();
+            tbReport.Text = carReportDBDataGridView.CurrentRow.Cells[5].Value.ToString();
+            if (!carReportDBDataGridView.CurrentRow.Cells[6].Value.Equals(DBNull.Value)) {
+                pictureBox.Image = ByteArrayToImage((byte[])carReportDBDataGridView.CurrentRow.Cells[6].Value);
+            } else {
+                pictureBox.Image = null;
+            }
+        }
+
+        // バイト配列をImageオブジェクトに変換
+        public static Image ByteArrayToImage(byte[] b) {
+            ImageConverter imgconv = new ImageConverter();
+            Image img = (Image)imgconv.ConvertFrom(b);
+            return img;
         }
     }
 }
