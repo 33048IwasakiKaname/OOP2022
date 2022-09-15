@@ -149,33 +149,12 @@ namespace CarReportSystem {
 
             //インデックス取得
             var index = dataGridView.CurrentCell.RowIndex;
-
-            //テキストボックスに表示
-            //cbRecorderName.Text = listCarReports[index].Auther;
-            //cbCarName.Text = listCarReports[index].CarName;
-            //tbReport.Text = listCarReports[index].Report;
-            //pictureBox.Image = listCarReports[index].Picture;
-            //dateTimePicker.Value =
-            //    listCarReports[index].Date.Year > 1900 ? listCarReports[index].Date : DateTime.Today;
-            //KindNumberCheck(index);
         }
 
         //メーカーチェック
         private void KindNumberCheck(String maker) {
 
             string makerName = carReportDBDataGridView.CurrentRow.Cells[3].Value.ToString();
-
-            //if (makerName == "トヨタ") {
-            //    rbToyota.Checked = true;
-            //} else if (makerName == "日産") {
-            //    rbNissan.Checked = true;
-            //} else if (makerName == "スバル") {
-            //    rbSubaru.Checked = true;
-            //} else if (makerName == "外国車") {
-            //    rbForeignCar.Checked = true;
-            //} else if (makerName == "その他") {
-            //    rbOther.Checked = true;
-            //}
 
             switch (maker) {
                 case "トヨタ":
@@ -205,45 +184,15 @@ namespace CarReportSystem {
 
         //ファイル保存
         private void btSave_Click(object sender, EventArgs e) {
-            //if (saveFileDialog.ShowDialog() == DialogResult.OK) {
 
-            //    try {
-            //        //バイナリー形式でシリアル化
-            //        var bf = new BinaryFormatter();
-            //        using (FileStream fs = File.Open(saveFileDialog.FileName, FileMode.Create)) {
-            //            bf.Serialize(fs, listCarReports);
-            //        }
-            //    }
-            //    catch (Exception ex) {
-            //        MessageBox.Show(ex.Message);
-            //    }
-            //}
         }
 
         //ファイル開く
         private void btOpen_Click(object sender, EventArgs e) {
-            //if (OpenFileDialog.ShowDialog() == DialogResult.OK) {
-            //    try {
-            //        //バイナリー形式でシリアル化
-            //        var bf = new BinaryFormatter();
-            //        using (FileStream fs = File.Open(OpenFileDialog.FileName, FileMode.Open, FileAccess.Read)) {
-            //            //逆シリアル化して読み込む
-            //            listCarReports = (BindingList<CarReport>)bf.Deserialize(fs);
-            //            dataGridView.DataSource = null;
-            //            dataGridView.DataSource = listCarReports;
-            //        }
-            //    }
-            //    catch (Exception ex) {
-            //        MessageBox.Show(ex.Message);
-            //    }
-            //}
 
-            buttonEnabledCheck();
         }
 
-
         //サイズ変更
-
         private void btSizeChange_Click(object sender, EventArgs e) {
             if (pictureBox.SizeMode == PictureBoxSizeMode.Zoom) {
                 pictureBox.SizeMode = PictureBoxSizeMode.Normal;
