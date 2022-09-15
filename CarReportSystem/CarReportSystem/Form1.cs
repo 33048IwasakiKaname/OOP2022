@@ -86,23 +86,19 @@ namespace CarReportSystem {
         }
 
         //ラジオボタンチェック
-        private CarReport.MakerGroup RadioButtonCheckGroup() {
-
-            CarReport.MakerGroup selectedKindNumber = CarReport.MakerGroup.その他;
+        private string RadioButtonCheckGroup() {
 
             if (rbToyota.Checked){
-                selectedKindNumber = CarReport.MakerGroup.トヨタ;
+                return "トヨタ";
             } else if (rbNissan.Checked) {
-                selectedKindNumber = CarReport.MakerGroup.日産;
+                return "日産";
             } else if (rbSubaru.Checked) {
-                selectedKindNumber = CarReport.MakerGroup.スバル;
+                return "スバル";
             } else if (rbForeignCar.Checked) {
-                selectedKindNumber = CarReport.MakerGroup.外国車;
-            } else if (rbOther.Checked) {
-                selectedKindNumber = CarReport.MakerGroup.その他;
-            }
+                return "外国車";
+            } 
 
-            return selectedKindNumber;
+            return "その他";
         }
 
         //終了ボタン
