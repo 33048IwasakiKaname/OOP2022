@@ -309,7 +309,7 @@ namespace CarReportSystem {
         public static Image ByteArrayToImage(byte[] b) {
             ImageConverter imgconv = new ImageConverter();
             Image img = (Image)imgconv.ConvertFrom(b);
-            return img;
+            return img;　
         }
 
         // Imageオブジェクトをバイト配列に変換
