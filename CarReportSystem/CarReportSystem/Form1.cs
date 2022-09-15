@@ -335,6 +335,9 @@ namespace CarReportSystem {
 
             carReportDBDataGridView.Rows.RemoveAt(carReportDBDataGridView.CurrentRow.Index);
 
+            //データベース更新
+            this.carReportDBTableAdapter.Update(this.infosys202205DataSet.CarReportDB);
+
         }
 
         //クリアボタンを押したとき
