@@ -165,7 +165,7 @@ namespace CarReportSystem {
         }
 
         //メーカーチェック
-        private void KindNumberCheck() {
+        private void KindNumberCheck(String maker) {
 
             string makerName = carReportDBDataGridView.CurrentRow.Cells[3].Value.ToString();
 
@@ -181,7 +181,7 @@ namespace CarReportSystem {
             //    rbOther.Checked = true;
             //}
 
-            switch (carReportDBDataGridView.CurrentRow.Cells[3].Value.ToString()) {
+            switch (maker) {
                 case "トヨタ":
                     rbToyota.Checked = true;
                     break;
@@ -295,7 +295,7 @@ namespace CarReportSystem {
 
             dateTimePicker.Value = DateTime.Parse(carReportDBDataGridView.CurrentRow.Cells[1].Value.ToString());
             cbRecorderName.Text = carReportDBDataGridView.CurrentRow.Cells[2].Value.ToString();
-            KindNumberCheck();
+            KindNumberCheck(carReportDBDataGridView.CurrentRow.Cells[3].Value.ToString());
             cbCarName.Text = carReportDBDataGridView.CurrentRow.Cells[4].Value.ToString();
             tbReport.Text = carReportDBDataGridView.CurrentRow.Cells[5].Value.ToString();
             if (!carReportDBDataGridView.CurrentRow.Cells[6].Value.Equals(DBNull.Value)) {
