@@ -323,16 +323,6 @@ namespace CarReportSystem {
         //削除ボタンが押されたとき
         private void btDelete_Click(object sender, EventArgs e) {
 
-            //if (listCarReports.Count > 0) {
-            //    //インデックス取得
-            //    var index = dataGridView.CurrentCell.RowIndex;
-
-            //    //行削除
-            //    listCarReports.RemoveAt(index);
-            //}
-            //buttonEnabledCheck();
-
-
             carReportDBDataGridView.Rows.RemoveAt(carReportDBDataGridView.CurrentRow.Index);
 
             //データベース更新
