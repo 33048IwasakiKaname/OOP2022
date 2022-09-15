@@ -170,16 +170,36 @@ namespace CarReportSystem {
 
             string makerName = carReportDBDataGridView.CurrentRow.Cells[3].Value.ToString();
 
-            if (makerName == "トヨタ") {
-                rbToyota.Checked = true;
-            } else if (makerName == "日産") {
-                rbNissan.Checked = true;
-            } else if (makerName == "スバル") {
-                rbSubaru.Checked = true;
-            } else if (makerName == "外国車") {
-                rbForeignCar.Checked = true;
-            } else if (makerName == "その他") {
-                rbOther.Checked = true;
+            //if (makerName == "トヨタ") {
+            //    rbToyota.Checked = true;
+            //} else if (makerName == "日産") {
+            //    rbNissan.Checked = true;
+            //} else if (makerName == "スバル") {
+            //    rbSubaru.Checked = true;
+            //} else if (makerName == "外国車") {
+            //    rbForeignCar.Checked = true;
+            //} else if (makerName == "その他") {
+            //    rbOther.Checked = true;
+            //}
+
+            switch (carReportDBDataGridView.CurrentRow.Cells[3].Value.ToString()) {
+                case "トヨタ":
+                    rbToyota.Checked = true;
+                    break;
+                case "日産":
+                    rbNissan.Checked = true;
+                    break;
+                case "スバル":
+                    rbSubaru.Checked = true;
+                    break;
+                case "外国車":
+                    rbForeignCar.Checked = true;
+                    break;
+                case "その他":
+                    rbOther.Checked = true;
+                    break;
+                default:
+                    break;
             }
         }       
 
@@ -334,6 +354,7 @@ namespace CarReportSystem {
             tbReport.Text = null;
             pictureBox.Image = null;
             rbToyota.Checked = true;
+            tbNameSearch.Text = null;
         }
 
         //エラー回避
