@@ -18,11 +18,10 @@ namespace CarReportSystem {
         Settings settings = Settings.getInstance();
 
         //住所データ管理用データ
-        BindingList<CarReport> listCarReports = new BindingList<CarReport>();
+        //BindingList<CarReport> listCarReports = new BindingList<CarReport>();
 
         public Form1() {
             InitializeComponent();
-            dataGridView.DataSource = listCarReports;  
         }
 
         //ロードされたとき
@@ -113,7 +112,7 @@ namespace CarReportSystem {
 
         //ボタンをマスクする
         private void buttonEnabledCheck() {
-            btDelete.Enabled = btUpdate.Enabled = listCarReports.Count() > 0 ? true : false;
+            
         }
 
         //コンボボックス(記録者)に登録済みかの判定
@@ -156,12 +155,12 @@ namespace CarReportSystem {
             var index = dataGridView.CurrentCell.RowIndex;
 
             //テキストボックスに表示
-            cbRecorderName.Text = listCarReports[index].Auther;
-            cbCarName.Text = listCarReports[index].CarName;
-            tbReport.Text = listCarReports[index].Report;
-            pictureBox.Image = listCarReports[index].Picture;
-            dateTimePicker.Value =
-                listCarReports[index].Date.Year > 1900 ? listCarReports[index].Date : DateTime.Today;
+            //cbRecorderName.Text = listCarReports[index].Auther;
+            //cbCarName.Text = listCarReports[index].CarName;
+            //tbReport.Text = listCarReports[index].Report;
+            //pictureBox.Image = listCarReports[index].Picture;
+            //dateTimePicker.Value =
+            //    listCarReports[index].Date.Year > 1900 ? listCarReports[index].Date : DateTime.Today;
             //KindNumberCheck(index);
         }
 
@@ -210,38 +209,38 @@ namespace CarReportSystem {
 
         //ファイル保存
         private void btSave_Click(object sender, EventArgs e) {
-            if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+            //if (saveFileDialog.ShowDialog() == DialogResult.OK) {
 
-                try {
-                    //バイナリー形式でシリアル化
-                    var bf = new BinaryFormatter();
-                    using (FileStream fs = File.Open(saveFileDialog.FileName, FileMode.Create)) {
-                        bf.Serialize(fs, listCarReports);
-                    }
-                }
-                catch (Exception ex) {
-                    MessageBox.Show(ex.Message);
-                }
-            }
+            //    try {
+            //        //バイナリー形式でシリアル化
+            //        var bf = new BinaryFormatter();
+            //        using (FileStream fs = File.Open(saveFileDialog.FileName, FileMode.Create)) {
+            //            bf.Serialize(fs, listCarReports);
+            //        }
+            //    }
+            //    catch (Exception ex) {
+            //        MessageBox.Show(ex.Message);
+            //    }
+            //}
         }
 
         //ファイル開く
         private void btOpen_Click(object sender, EventArgs e) {
-            if (OpenFileDialog.ShowDialog() == DialogResult.OK) {
-                try {
-                    //バイナリー形式でシリアル化
-                    var bf = new BinaryFormatter();
-                    using (FileStream fs = File.Open(OpenFileDialog.FileName, FileMode.Open, FileAccess.Read)) {
-                        //逆シリアル化して読み込む
-                        listCarReports = (BindingList<CarReport>)bf.Deserialize(fs);
-                        dataGridView.DataSource = null;
-                        dataGridView.DataSource = listCarReports;
-                    }
-                }
-                catch (Exception ex) {
-                    MessageBox.Show(ex.Message);
-                }
-            }
+            //if (OpenFileDialog.ShowDialog() == DialogResult.OK) {
+            //    try {
+            //        //バイナリー形式でシリアル化
+            //        var bf = new BinaryFormatter();
+            //        using (FileStream fs = File.Open(OpenFileDialog.FileName, FileMode.Open, FileAccess.Read)) {
+            //            //逆シリアル化して読み込む
+            //            listCarReports = (BindingList<CarReport>)bf.Deserialize(fs);
+            //            dataGridView.DataSource = null;
+            //            dataGridView.DataSource = listCarReports;
+            //        }
+            //    }
+            //    catch (Exception ex) {
+            //        MessageBox.Show(ex.Message);
+            //    }
+            //}
 
             buttonEnabledCheck();
         }
@@ -339,10 +338,6 @@ namespace CarReportSystem {
 
 
             carReportDBDataGridView.Rows.RemoveAt(carReportDBDataGridView.CurrentRow.Index);
-
-
-            //データベース更新
-            this.carReportDBTableAdapter.Update(this.infosys202205DataSet.CarReportDB);
 
         }
 
