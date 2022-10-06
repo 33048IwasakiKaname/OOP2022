@@ -143,12 +143,6 @@ namespace CarReportSystem {
 
         //データグリッドビューがクリックされたとき
         private void DataGridViewClick(object sender, EventArgs e) {
-
-            //データがあるかどうかを判断
-            if (dataGridView.CurrentCell == null) return;
-
-            //インデックス取得
-            var index = dataGridView.CurrentCell.RowIndex;
         }
 
         //メーカーチェック
