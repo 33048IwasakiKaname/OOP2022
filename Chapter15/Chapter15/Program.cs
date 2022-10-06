@@ -9,7 +9,7 @@ namespace Chapter15 {
         static void Main(string[] args) {
 
             var years = new List<int>();
-            var books = Library.Books;
+            IEnumerable<Book> books;
 
 
             Console.WriteLine("出力したい西暦を入力 (-1で終了)");
@@ -23,11 +23,11 @@ namespace Chapter15 {
             var check = int.Parse(Console.ReadLine());
 
             if (check == 0) {
-                books = Library.Books.OrderBy(b=>b.PublishedYear)
-                                     .Where(b => years.Contains(b.PublishedYear));
+                books = Library.Books.Where(b => years.Contains(b.PublishedYear))
+                                     .OrderBy(b=>b.PublishedYear);
             } else {
-                books = Library.Books.OrderByDescending(b => b.PublishedYear)
-                                     .Where(b => years.Contains(b.PublishedYear));
+                books = Library.Books.Where(b => years.Contains(b.PublishedYear))
+                                     .OrderByDescending(b => b.PublishedYear);
             }
 
             foreach (var book in books) {
@@ -38,13 +38,33 @@ namespace Chapter15 {
 
             foreach (var year2 in years) {
                 Console.WriteLine(year2);
-                foreach (var book2 in books.Where(b=>b.PublishedYear == year2)) {
-                    var category = Library.Categories.Where(b=>b.Id == book2.CategoryId).First();
-                    Console.WriteLine($"タイトル:{book2.Title},価格:{book2.Price},カテゴリ:{category.Name}");                  
+                foreach (var book2 in books.Where(b => b.PublishedYear == year2)) {
+                    var category = Library.Categories.Where(b => b.Id == book2.CategoryId).First();
+                    Console.WriteLine($"タイトル:{book2.Title},価格:{book2.Price},カテゴリ:{category.Name}");
                 }
 
                 Console.WriteLine("");//改行
             }
+
+            var selected = Library.Books
+                                  .Where(b=>years.Contains(b.PublishedYear))  
+                                  .Join(Library.Categories,         //結合する2番目のシーケンス    
+                                        book => book.CategoryId,    //対象シーケンスの結合キー
+                                        category => category.Id,    //2番目のシーケンスの結合キー
+                                        (book, category) => new {
+                                            Title = book.Title,
+                                            Category = category.Name,
+                                            PublishedYear = book.PublishedYear,
+                                            Price = book.Price
+                                        }
+                                  );
+
+            foreach (var book in selected.OrderByDescending(b => b.PublishedYear)
+                                         .ThenBy(b => b.Category)) {
+                Console.WriteLine($"{book.PublishedYear},{book.Title},{book.Category},{book.Price}");
+            }
+
+            Console.WriteLine($"合計金額：{selected.Sum(b=>b.Price)}円");
         }
     }
 }

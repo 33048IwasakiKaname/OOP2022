@@ -22,7 +22,7 @@ namespace Chapter15 {
         public int PublishedYear { get; set; }
 
         public override string ToString() {
-            return $"カテゴリ:{CategoryId}, 価格:{Price}, タイトル:{Title}";
+            return $"発行年:{PublishedYear},カテゴリ:{CategoryId}, 価格:{Price}, タイトル:{Title}";
         }
     }
 
