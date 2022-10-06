@@ -12,7 +12,7 @@ namespace Chapter15 {
             var books = Library.Books;
 
 
-            Console.WriteLine("出力したい西暦を入力");
+            Console.WriteLine("出力したい西暦を入力 (-1で終了)");
             var year = int.Parse(Console.ReadLine());
             while (year != -1) {
                 years.Add(year);
