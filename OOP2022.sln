@@ -129,6 +129,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberGame", "WPF\NumberGam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleSlider", "WPF\SampleSlider\SampleSlider.csproj", "{7F3F1641-E4B2-48DC-BC87-8316ADDFB784}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleUnitConverter", "WPF\SampleUnitConverter\SampleUnitConverter.csproj", "{D8B3819B-1C97-484B-85EB-30B35B133C7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -315,6 +317,10 @@ Global
 		{7F3F1641-E4B2-48DC-BC87-8316ADDFB784}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F3F1641-E4B2-48DC-BC87-8316ADDFB784}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F3F1641-E4B2-48DC-BC87-8316ADDFB784}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8B3819B-1C97-484B-85EB-30B35B133C7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8B3819B-1C97-484B-85EB-30B35B133C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8B3819B-1C97-484B-85EB-30B35B133C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8B3819B-1C97-484B-85EB-30B35B133C7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -367,6 +373,7 @@ Global
 		{673E2A35-FDC1-4D43-944B-06B5370CA05B} = {9048DD69-631E-4BE7-8D34-B859823D735A}
 		{5847C0B8-77ED-4647-8E8D-7340EA9823DD} = {9048DD69-631E-4BE7-8D34-B859823D735A}
 		{7F3F1641-E4B2-48DC-BC87-8316ADDFB784} = {9048DD69-631E-4BE7-8D34-B859823D735A}
+		{D8B3819B-1C97-484B-85EB-30B35B133C7C} = {9048DD69-631E-4BE7-8D34-B859823D735A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC17E648-5B23-4B8B-B95D-6B88414E6EFD}
