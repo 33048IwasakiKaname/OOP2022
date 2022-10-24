@@ -1,0 +1,59 @@
+﻿<Window x:Class="CollarChecker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CollarChecker"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="200" Width="420">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="1" Text="R" FontSize="30"/>
+            <Slider x:Name="Slider_R" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="1" 
+                    VerticalAlignment="Top" Grid.ColumnSpan="3" Width="108" Minimum="0" Maximum="255" ValueChanged="Slider_ValueChanged"/>
+            <TextBox x:Name="Text_R" Grid.Row="1" Grid.Column="4" FontSize="20"
+                     Text="{Binding ElementName=Slider_R,Path=Value,UpdateSourceTrigger=PropertyChanged,
+                            StringFormat={}{0:0}}"/>
+
+
+            <TextBlock Grid.Row="2" Text="G" FontSize="30"/>
+            <Slider  x:Name="Slider_G" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="2" 
+                    VerticalAlignment="Top" Grid.ColumnSpan="3" Width="108" Minimum="0" Maximum="255" ValueChanged="Slider_ValueChanged"/>
+            <TextBox x:Name="Text_G" Grid.Row="2" Grid.Column="4" FontSize="20"
+                     Text="{Binding ElementName=Slider_G,Path=Value,UpdateSourceTrigger=PropertyChanged,
+                            StringFormat={}{0:0}}"/>
+
+
+            <TextBlock Grid.Row="3" Text="B" FontSize="30"/>
+            <Slider  x:Name="Slider_B" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="3" 
+                    VerticalAlignment="Top" Grid.ColumnSpan="3" Width="108" Minimum="0" Maximum="255" ValueChanged="Slider_ValueChanged"/>
+            <TextBox x:Name="Text_B" Grid.Row="3" Grid.Column="4" FontSize="20"
+                     Text="{Binding ElementName=Slider_B,Path=Value,UpdateSourceTrigger=PropertyChanged,
+                            StringFormat={}{0:0}}"/>
+
+        </Grid>
+        <Label x:Name="Label_Color" HorizontalAlignment="Left" VerticalAlignment="Top"
+               Height="130" Width="130" Margin="31,24,0,0"/>
+
+
+    </Grid>
+</Window>

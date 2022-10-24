@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SampleSlider {
+namespace CollarChecker {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
@@ -22,8 +22,13 @@ namespace SampleSlider {
             InitializeComponent();
         }
 
-        private void SampleSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+        //背景色変更
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+            int r = int.Parse(Text_R.Text);
+            int g = int.Parse(Text_G.Text);
+            int b = int.Parse(Text_B.Text);
 
+            Label_Color.Background = new SolidColorBrush(Color.FromRgb((byte)r, (byte)g, (byte)b));
         }
     }
 }
