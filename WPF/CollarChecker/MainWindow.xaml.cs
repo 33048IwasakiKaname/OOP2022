@@ -26,13 +26,17 @@ namespace CollarChecker {
             DataContext = GetColorList();
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            Label_Color.Background = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+        }
+
         //背景色変更
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            int r = int.Parse(Text_R.Text);
-            int g = int.Parse(Text_G.Text);
-            int b = int.Parse(Text_B.Text);
+            var r = byte.Parse(Text_R.Text);
+            var g = byte.Parse(Text_G.Text);
+            var b = byte.Parse(Text_B.Text);
 
-            Label_Color.Background = new SolidColorBrush(Color.FromRgb((byte)r, (byte)g, (byte)b));
+            Label_Color.Background = new SolidColorBrush(Color.FromRgb(r,g,b));
         }
 
         private void Text_TextChanged(object sender, TextChangedEventArgs e) {
@@ -40,11 +44,11 @@ namespace CollarChecker {
                 Text_R.Text == "" || Text_G.Text == "" || Text_B.Text == "")
                 return;
 
-            int r = int.Parse(Text_R.Text);
-            int g = int.Parse(Text_G.Text);
-            int b = int.Parse(Text_B.Text);
+            var r = byte.Parse(Text_R.Text);
+            var g = byte.Parse(Text_G.Text);
+            var b = byte.Parse(Text_B.Text);
 
-            Label_Color.Background = new SolidColorBrush(Color.FromRgb((byte)r, (byte)g, (byte)b));
+            Label_Color.Background = new SolidColorBrush(Color.FromRgb(r,g,b));
         }
 
         private MyColor[] GetColorList() {
@@ -53,8 +57,15 @@ namespace CollarChecker {
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            var color = (MyColor)((ComboBox)sender).SelectedItem;
+            var color_r = color.Color.R;
+            var color_g = color.Color.G;
+            var color_b = color.Color.B;
 
-
+            Text_R.Text = color_r.ToString();
+            Text_G.Text = color_g.ToString();
+            Text_B.Text = color_b.ToString();
+            Label_Color.Background = new SolidColorBrush(Color.FromRgb(color_r,color_g,color_b));          
         }
     }
 
