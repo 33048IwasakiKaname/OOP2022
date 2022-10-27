@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,7 +20,10 @@ namespace CollarChecker {
     /// </summary>
     public partial class MainWindow : Window {
         public MainWindow() {
+            
             InitializeComponent();
+
+            DataContext = GetColorList();
         }
 
         //背景色変更
@@ -30,5 +34,32 @@ namespace CollarChecker {
 
             Label_Color.Background = new SolidColorBrush(Color.FromRgb((byte)r, (byte)g, (byte)b));
         }
+
+        private void Text_TextChanged(object sender, TextChangedEventArgs e) {
+            if (Text_R == null || Text_G == null || Text_B == null ||
+                Text_R.Text == "" || Text_G.Text == "" || Text_B.Text == "")
+                return;
+
+            int r = int.Parse(Text_R.Text);
+            int g = int.Parse(Text_G.Text);
+            int b = int.Parse(Text_B.Text);
+
+            Label_Color.Background = new SolidColorBrush(Color.FromRgb((byte)r, (byte)g, (byte)b));
+        }
+
+        private MyColor[] GetColorList() {
+            return typeof(Colors).GetProperties(BindingFlags.Public | BindingFlags.Static)
+                .Select(i => new MyColor() { Color = (Color)i.GetValue(null), Name = i.Name }).ToArray();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+
+
+        }
+    }
+
+    public class MyColor {
+        public Color Color { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CollarChecker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="200" Width="420">
+        Title="MainWindow" Height="202" Width="420">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -32,16 +32,14 @@
                     VerticalAlignment="Top" Grid.ColumnSpan="3" Width="108" Minimum="0" Maximum="255" ValueChanged="Slider_ValueChanged"/>
             <TextBox x:Name="Text_R" Grid.Row="1" Grid.Column="4" FontSize="20"
                      Text="{Binding ElementName=Slider_R,Path=Value,UpdateSourceTrigger=PropertyChanged,
-                            StringFormat={}{0:0}}"/>
-
+                            StringFormat={}{0:0}}" TextChanged="Text_TextChanged"/>
 
             <TextBlock Grid.Row="2" Text="G" FontSize="30"/>
             <Slider  x:Name="Slider_G" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="2" 
                     VerticalAlignment="Top" Grid.ColumnSpan="3" Width="108" Minimum="0" Maximum="255" ValueChanged="Slider_ValueChanged"/>
             <TextBox x:Name="Text_G" Grid.Row="2" Grid.Column="4" FontSize="20"
                      Text="{Binding ElementName=Slider_G,Path=Value,UpdateSourceTrigger=PropertyChanged,
-                            StringFormat={}{0:0}}"/>
-
+                            StringFormat={}{0:0}}" TextChanged="Text_TextChanged"/>
 
             <TextBlock Grid.Row="3" Text="B" FontSize="30"/>
             <Slider  x:Name="Slider_B" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="3" 
@@ -50,10 +48,24 @@
                      Text="{Binding ElementName=Slider_B,Path=Value,UpdateSourceTrigger=PropertyChanged,
                             StringFormat={}{0:0}}"/>
 
+
+            <ComboBox x:Name="Color_cb" ItemsSource="{Binding}" SelectedValue="{Binding Color}" Margin="10,5,0,0" Height="24" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="155" Grid.ColumnSpan="5" Grid.Row="4" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="20" Height="Auto" Margin="5,0" BorderThickness="1" BorderBrush="Black">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding Color}"/>
+                                </Border.Background>
+                            </Border>
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
         </Grid>
         <Label x:Name="Label_Color" HorizontalAlignment="Left" VerticalAlignment="Top"
                Height="130" Width="130" Margin="31,24,0,0"/>
-
-
     </Grid>
 </Window>
