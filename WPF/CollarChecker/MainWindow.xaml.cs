@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -66,6 +67,15 @@ namespace CollarChecker {
             Text_G.Text = color_g.ToString();
             Text_B.Text = color_b.ToString();
             Label_Color.Background = new SolidColorBrush(Color.FromRgb(color_r,color_g,color_b));          
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e) {
+            var text_r = Text_R.Text;
+            var text_g = Text_G.Text;
+            var text_b = Text_B.Text;
+
+            var color = new List<string>() { text_r, text_g, text_b };
+            color_list.Items.Add(color);
         }
     }
 
