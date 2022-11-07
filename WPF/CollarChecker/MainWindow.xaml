@@ -50,7 +50,7 @@
                     ValueChanged="Slider_ValueChanged" TickPlacement="TopLeft" TickFrequency="51"/>
             <TextBox x:Name="Text_B" Grid.Row="3" Grid.Column="4" FontSize="20"
                      Text="{Binding ElementName=Slider_B,Path=Value,UpdateSourceTrigger=PropertyChanged,
-                            StringFormat={}{0:0}}"/>
+                            StringFormat={}{0:0}}" TextChanged="Text_TextChanged" />
 
 
             <ComboBox x:Name="Color_cb" ItemsSource="{Binding}" SelectedValue="{Binding Color}" Margin="10,5,0,0" Height="24" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="155" Grid.ColumnSpan="5" Grid.Row="4" SelectionChanged="ComboBox_SelectionChanged">
@@ -70,12 +70,14 @@
 
             <Button x:Name="Button" Grid.Row="4" Grid.Column="3" Margin="10,10" Content="追加" Click="Add_Click"/>
 
+            <Button x:Name="Delete" Grid.Row="5" Grid.Column="5" Margin="10,10" Content="削除" Click="Del_Click"/>
+
         </Grid>
         <Label x:Name="Label_Color" HorizontalAlignment="Left" VerticalAlignment="Top"
                Height="213" Width="238" Margin="31,24,0,0"/>
 
         <Grid Grid.Column="3">
-            <ListBox x:Name="color_list" Margin="5,5" />
+            <ListBox x:Name="color_list" Margin="5,5" SelectionChanged="color_list_SelectionChanged" />
         </Grid>
         
     </Grid>
