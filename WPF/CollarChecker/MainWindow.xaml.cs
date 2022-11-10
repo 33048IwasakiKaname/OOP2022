@@ -83,9 +83,10 @@ namespace CollarChecker {
             var b = byte.Parse(Text_B.Text);
             setColor.Color = Color.FromRgb(r, g, b);
 
-            var colorNameDis = ((IEnumerable<MyColor>)DataContext).Where(c => c.Color.R == setColor.Color.R &&
-                                                                           c.Color.G == setColor.Color.G &&
-                                                                           c.Color.B == setColor.Color.B).FirstOrDefault();
+            var colorNameDis = ((IEnumerable<MyColor>)DataContext)
+                                            .Where(c => c.Color.R == setColor.Color.R &&
+                                                        c.Color.G == setColor.Color.G &&
+                                                        c.Color.B == setColor.Color.B).FirstOrDefault();
 
             color_list.Items.Insert(0, colorNameDis?.Name ?? "R:" + Text_R.Text + " G:" + Text_G.Text + " B:" + Text_B.Text);
             ColorList.Insert(0, setColor);
