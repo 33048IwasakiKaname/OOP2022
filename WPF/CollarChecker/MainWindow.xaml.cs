@@ -44,6 +44,7 @@ namespace CollarChecker {
             setColor(r,g,b);
         }
 
+        //テキストボックス変更時の処理
         private void Text_TextChanged(object sender, TextChangedEventArgs e) {
             if (Text_R == null || Text_G == null || Text_B == null ||
                 Text_R.Text == "" || Text_G.Text == "" || Text_B.Text == "" || Label_Color == null)
@@ -61,6 +62,7 @@ namespace CollarChecker {
                 .Select(i => new MyColor() { Color = (Color)i.GetValue(null), Name = i.Name }).ToArray();
         }
 
+        //コンボボックス
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             var color = (MyColor)((ComboBox)sender).SelectedItem;
             var color_r = color.Color.R;
@@ -73,6 +75,7 @@ namespace CollarChecker {
             Label_Color.Background = new SolidColorBrush(Color.FromRgb(color_r, color_g, color_b)); 
         }
 
+        //データ追加処理
         private void Add_Click(object sender, RoutedEventArgs e) {
 
             
@@ -92,10 +95,16 @@ namespace CollarChecker {
             ColorList.Insert(0, setColor);
         }
 
+        //削除処理
         private void Del_Click(object sender, RoutedEventArgs e) {
-            if (color_list.SelectedIndex >= 0) {
+            var delIndex = color_list.SelectedIndex;
+            if (delIndex >= 0) {
+                ColorList.RemoveAt(color_list.SelectedIndex);
                 color_list.Items.RemoveAt(color_list.SelectedIndex);
             }
+
+            
+            
         }
 
         private void color_list_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -106,6 +115,7 @@ namespace CollarChecker {
             }
         }
 
+        //色のセット
         public void setColor(byte r,byte g, byte b) {
             Label_Color.Background = new SolidColorBrush(Color.FromRgb(r, g, b));
         }
