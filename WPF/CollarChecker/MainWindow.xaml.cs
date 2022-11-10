@@ -75,33 +75,34 @@ namespace CollarChecker {
 
         private void Add_Click(object sender, RoutedEventArgs e) {
 
-            var text_r = Text_R.Text;
-            var text_g = Text_G.Text;
-            var text_b = Text_B.Text;
             
-            if (Color_cb.SelectedItem != null) {
-                var colorName = ((MyColor)Color_cb.SelectedItem).Name;
-                color_list.Items.Add(colorName);
-            } else {
-                color_list.Items.Add("R:" + text_r + " G:" + text_g + " B:" + text_b);
-            }
 
             MyColor setColor = new MyColor();
-            var r = byte.Parse(text_r);
-            var g = byte.Parse(text_g);
-            var b = byte.Parse(text_b);
+            var r = byte.Parse(Text_R.Text);
+            var g = byte.Parse(Text_G.Text);
+            var b = byte.Parse(Text_B.Text);
             setColor.Color = Color.FromRgb(r, g, b);
-            ColorList.Add(setColor);
+
+            var colorNameDis = ((IEnumerable<MyColor>)DataContext).Where(c => c.Color.R == setColor.Color.R &&
+                                                                           c.Color.G == setColor.Color.G &&
+                                                                           c.Color.B == setColor.Color.B).FirstOrDefault();
+
+            color_list.Items.Insert(0, colorNameDis?.Name ?? "R:" + Text_R.Text + " G:" + Text_G.Text + " B:" + Text_B.Text);
+            ColorList.Insert(0, setColor);
         }
 
         private void Del_Click(object sender, RoutedEventArgs e) {
-            color_list.Items.RemoveAt(color_list.SelectedIndex);
+            if (color_list.SelectedIndex >= 0) {
+                color_list.Items.RemoveAt(color_list.SelectedIndex);
+            }      
         }
 
         private void color_list_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            Slider_R.Value = ColorList[color_list.SelectedIndex].Color.R;
-            Slider_G.Value = ColorList[color_list.SelectedIndex].Color.G;
-            Slider_B.Value = ColorList[color_list.SelectedIndex].Color.B;
+            if (color_list.SelectedIndex >= 0) {
+                Slider_R.Value = ColorList[color_list.SelectedIndex].Color.R;
+                Slider_G.Value = ColorList[color_list.SelectedIndex].Color.G;
+                Slider_B.Value = ColorList[color_list.SelectedIndex].Color.B;
+            }
         }
 
         public void setColor(byte r,byte g, byte b) {
