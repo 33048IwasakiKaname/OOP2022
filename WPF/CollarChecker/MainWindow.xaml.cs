@@ -95,7 +95,7 @@ namespace CollarChecker {
         private void Del_Click(object sender, RoutedEventArgs e) {
             if (color_list.SelectedIndex >= 0) {
                 color_list.Items.RemoveAt(color_list.SelectedIndex);
-            }      
+            }
         }
 
         private void color_list_SelectionChanged(object sender, SelectionChangedEventArgs e) {
