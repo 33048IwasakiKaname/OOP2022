@@ -28,6 +28,8 @@ namespace WeatherApp {
             this.tbWeatherInfo = new System.Windows.Forms.TextBox();
             this.cbRegion = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.weatherPb = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.weatherPb)).BeginInit();
             this.SuspendLayout();
             // 
             // btWeatherGet
@@ -114,17 +116,27 @@ namespace WeatherApp {
             this.label1.TabIndex = 3;
             this.label1.Text = "地域選択：";
             // 
+            // weatherPb
+            // 
+            this.weatherPb.Location = new System.Drawing.Point(33, 211);
+            this.weatherPb.Name = "weatherPb";
+            this.weatherPb.Size = new System.Drawing.Size(138, 102);
+            this.weatherPb.TabIndex = 4;
+            this.weatherPb.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(563, 346);
+            this.Controls.Add(this.weatherPb);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbRegion);
             this.Controls.Add(this.tbWeatherInfo);
             this.Controls.Add(this.btWeatherGet);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.weatherPb)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -136,6 +148,7 @@ namespace WeatherApp {
         private System.Windows.Forms.TextBox tbWeatherInfo;
         private System.Windows.Forms.ComboBox cbRegion;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox weatherPb;
     }
 }
 

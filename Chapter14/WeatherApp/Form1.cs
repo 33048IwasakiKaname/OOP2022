@@ -76,16 +76,27 @@ namespace WeatherApp {
                 Encoding = Encoding.UTF8
             };
 
-
             var value = regionDict.FirstOrDefault(x => x.Key == cbRegion.SelectedItem.ToString()).Value;
-            var s = string.Format("{0:000000}", value);
+            var num = string.Format("{0:000000}", value);
             
 
-            var dString = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/overview_forecast/" + s + ".json");
+            var dString = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/overview_forecast/" + num + ".json");
+            var weather = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/forecast/" + num + ".json");
 
             var json = JsonConvert.DeserializeObject<Rootobject>(dString);
 
-            tbWeatherInfo.Text = json.text;
+            var jsonWeather = JsonConvert.DeserializeObject<Class1[]>(weather);
+            var weatherCode = jsonWeather[0].timeSeries[0].areas[0].weatherCodes[0];
+            weatherPb.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCode + ".svg");
+            
+            
+
+            tbWeatherInfo.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[0];
+            
+
+            //tbWeatherInfo.Text = json.text;
+            
+
         }
     }
 }
