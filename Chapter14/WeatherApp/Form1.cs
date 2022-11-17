@@ -14,7 +14,7 @@ namespace WeatherApp {
 
     public partial class Form1 : Form {
 
-        private Dictionary<string, int> regionDict = new Dictionary<string, int>() {
+        public Dictionary<string, int> regionDict = new Dictionary<string, int>() {
                 {"北海道(札幌周辺)", 16000},
                 {"青森県", 20000},
                 {"岩手県", 30000},
@@ -61,8 +61,13 @@ namespace WeatherApp {
                 {"大分県", 440000},
                 {"宮崎県", 450000},
                 {"鹿児島県", 460100},
-                {"沖縄本島地方", 471000},
+                {"沖縄本島", 471000},
             };
+
+        private static WebClient wc = new WebClient()
+        {
+            Encoding = Encoding.UTF8
+        };
 
         public Form1() {
             InitializeComponent();
@@ -71,32 +76,86 @@ namespace WeatherApp {
         private void btWeatherGet_Click(object sender, EventArgs e) {
 
             tbWeatherInfo.ResetText();
-
-            var wc = new WebClient() {
-                Encoding = Encoding.UTF8
-            };
+            label_select.Text = "≪" + cbRegion.SelectedItem.ToString() + "≫";
 
             var value = regionDict.FirstOrDefault(x => x.Key == cbRegion.SelectedItem.ToString()).Value;
             var num = string.Format("{0:000000}", value);
             
 
             var dString = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/overview_forecast/" + num + ".json");
-            var weather = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/forecast/" + num + ".json");
-
             var json = JsonConvert.DeserializeObject<Rootobject>(dString);
 
+            //天気コード取得
+            var weather = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/forecast/" + num + ".json");
             var jsonWeather = JsonConvert.DeserializeObject<Class1[]>(weather);
-            var weatherCode = jsonWeather[0].timeSeries[0].areas[0].weatherCodes[0];
-            weatherPb.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCode + ".svg");
-            
-            
 
-            tbWeatherInfo.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[0];
-            
+                //本日
+            var weatherCodeToday = jsonWeather[0].timeSeries[0].areas[0].weatherCodes[0];
+            weatherPb.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCodeToday + ".png");
+            pb_0.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCodeToday + ".png");
 
-            //tbWeatherInfo.Text = json.text;
-            
+                //明日
+            var weatherCodeTomorrow = jsonWeather[0].timeSeries[0].areas[0].weatherCodes[1];
+            weatherPbTomorrow.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCodeTomorrow + ".png");
+            pb_1.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCodeTomorrow + ".png");
 
+                //明後日
+            var weatherCodeAfTomorrow = jsonWeather[1].timeSeries[0].areas[0].weatherCodes[2];
+            weatherPbAfTomorrow.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCodeAfTomorrow + ".png");
+            pb_2.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCodeAfTomorrow + ".png");
+
+                //3日後
+            var weatherCode_3 = jsonWeather[1].timeSeries[0].areas[0].weatherCodes[3];
+            pb_3.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCode_3 + ".png");
+
+                //4日後
+            var weatherCode_4 = jsonWeather[1].timeSeries[0].areas[0].weatherCodes[4];
+            pb_4.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCode_4 + ".png");
+
+                //5日後
+            var weatherCode_5 = jsonWeather[1].timeSeries[0].areas[0].weatherCodes[5];
+            pb_5.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCode_5 + ".png");
+
+                //6日後
+            var weatherCode_6 = jsonWeather[1].timeSeries[0].areas[0].weatherCodes[6];
+            pb_6.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCode_6 + ".png");
+
+
+            //マップコード取得
+            var mapCode = GetMapCode("https://www.jma.go.jp/bosai/weather_map/data/list.json");
+            WeatherMap.ImageLocation = ("https://www.jma.go.jp/bosai/weather_map/data/png/" + mapCode);
+            WeatherMap.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            tbMinTemp.Text = "-";
+            //tbMaxTemp.Text = jsonWeather[0].timeSeries[0].areas[2].temps[1];
+
+            tbReportTime.Text = json.reportDatetime.ToString();
+            tbWeatherToday.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[0];
+            tbWeatherTomorrow.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[1];
+            tbWeatherAfterTomorrow.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[2];
+            tbWindToday.Text = jsonWeather[0].timeSeries[0].areas[0].winds[0];
+            tbWeatherInfo.Text = json.text;     
+        }
+
+        //マップコード取得
+        public static string GetMapCode(string url) {
+            var mapUrl = wc.DownloadString(url);
+            var jsonMap = JsonConvert.DeserializeObject<Rootobject3>(mapUrl);
+            var Code = jsonMap.near.now[21];
+            return Code;
+        }
+
+        private void Form1_Load(object sender, EventArgs e){
+            var day = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json");
+            var jsonDay = JsonConvert.DeserializeObject<Class1[]>(day);
+
+            label_0.Text = jsonDay[1].timeSeries[0].timeDefines[0].ToString("MM/dd");
+            label_1.Text = jsonDay[1].timeSeries[0].timeDefines[1].ToString("MM/dd");
+            label_2.Text = jsonDay[1].timeSeries[0].timeDefines[2].ToString("MM/dd");
+            label_3.Text = jsonDay[1].timeSeries[0].timeDefines[3].ToString("MM/dd");
+            label_4.Text = jsonDay[1].timeSeries[0].timeDefines[4].ToString("MM/dd");
+            label_5.Text = jsonDay[1].timeSeries[0].timeDefines[5].ToString("MM/dd");
+            label_6.Text = jsonDay[1].timeSeries[0].timeDefines[6].ToString("MM/dd");
         }
     }
 }
