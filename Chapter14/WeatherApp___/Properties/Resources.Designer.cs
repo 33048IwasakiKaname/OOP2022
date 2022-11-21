@@ -63,9 +63,39 @@ namespace WeatherApp.Properties {
         /// <summary>
         ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
         /// </summary>
-        internal static System.Drawing.Bitmap japan {
+        internal static System.Drawing.Bitmap 日本地図 {
             get {
-                object obj = ResourceManager.GetObject("japan", resourceCulture);
+                object obj = ResourceManager.GetObject("日本地図", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap 空 {
+            get {
+                object obj = ResourceManager.GetObject("空", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap 空2 {
+            get {
+                object obj = ResourceManager.GetObject("空2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        internal static System.Drawing.Bitmap 空3 {
+            get {
+                object obj = ResourceManager.GetObject("空3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

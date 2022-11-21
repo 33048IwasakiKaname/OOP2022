@@ -74,7 +74,8 @@ namespace WeatherApp {
         }
 
         private void btWeatherGet_Click(object sender, EventArgs e) {
-            getWeather();
+
+            click();    
         }
 
         //マップコード取得
@@ -85,10 +86,27 @@ namespace WeatherApp {
             return Code;
         }
 
-        public void getWeather()
+        private void Form1_Load(object sender, EventArgs e){
+            var day = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json");
+            var jsonDay = JsonConvert.DeserializeObject<Class1[]>(day);
+
+            label_0.Text = jsonDay[1].timeSeries[0].timeDefines[0].ToString("MM/dd");
+            label_1.Text = jsonDay[1].timeSeries[0].timeDefines[1].ToString("MM/dd");
+            label_2.Text = jsonDay[1].timeSeries[0].timeDefines[2].ToString("MM/dd");
+            label_3.Text = jsonDay[1].timeSeries[0].timeDefines[3].ToString("MM/dd");
+            label_4.Text = jsonDay[1].timeSeries[0].timeDefines[4].ToString("MM/dd");
+            label_5.Text = jsonDay[1].timeSeries[0].timeDefines[5].ToString("MM/dd");
+            label_6.Text = jsonDay[1].timeSeries[0].timeDefines[6].ToString("MM/dd");
+
+            cbRegion.SelectedItem = "東京都";
+            click();
+        }
+
+        public void click()
         {
+
             tbWeatherInfo.ResetText();
-            label_selected.Text = "≪" + cbRegion.SelectedItem.ToString() + "≫";
+            label_select.Text = "≪" + cbRegion.SelectedItem.ToString() + "≫";
 
             var value = regionDict.FirstOrDefault(x => x.Key == cbRegion.SelectedItem.ToString()).Value;
             var num = string.Format("{0:000000}", value);
@@ -100,6 +118,16 @@ namespace WeatherApp {
             //天気コード取得
             var weather = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/forecast/" + num + ".json");
             var jsonWeather = JsonConvert.DeserializeObject<Class1[]>(weather);
+
+            //本日
+            var weatherCodeToday = jsonWeather[0].timeSeries[0].areas[0].weatherCodes[0];
+            weatherPb.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCodeToday + ".png");
+            pb_0.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCodeToday + ".png");
+
+            //明日
+            var weatherCodeTomorrow = jsonWeather[0].timeSeries[0].areas[0].weatherCodes[1];
+            weatherPbTomorrow.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCodeTomorrow + ".png");
+            pb_1.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCodeTomorrow + ".png");
 
             //明後日
             var weatherCodeAfTomorrow = jsonWeather[1].timeSeries[0].areas[0].weatherCodes[2];
@@ -128,89 +156,21 @@ namespace WeatherApp {
             WeatherMap.ImageLocation = ("https://www.jma.go.jp/bosai/weather_map/data/png/" + mapCode);
             WeatherMap.SizeMode = PictureBoxSizeMode.StretchImage;
 
-            labelReportTime.Text = json.reportDatetime.ToString();
-            labelWeatherToday.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[0];
-            labelWeatherTomorrow.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[1];
-            labelWeatherAfterTomorrow.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[2];
-            labelWindToday.Text = jsonWeather[0].timeSeries[0].areas[0].winds[0];
-    
+            tbMinTemp.Text = "-";
+            //tbMaxTemp.Text = jsonWeather[0].timeSeries[0].areas[2].temps[1];
+
+            tbReportTime.Text = json.reportDatetime.ToString();
+            tbWeatherToday.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[0];
+            tbWeatherTomorrow.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[1];
+            tbWeatherAfterTomorrow.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[2];
+            tbWindToday.Text = jsonWeather[0].timeSeries[0].areas[0].winds[0];
             tbWeatherInfo.Text = json.text;
-
-            //今日の気温
-            labelMinTemp.Text = "ー";
-            labelMaxTemp.Text = jsonWeather[0].timeSeries[2].areas[0].temps[1] + "°";
-
-            //週間の気温
-            labelTmLow.Text = jsonWeather[0].timeSeries[2].areas[0].temps[2];
-            labelTmHigh.Text = jsonWeather[0].timeSeries[2].areas[0].temps[3];
-            labelNTmLow.Text = jsonWeather[1].timeSeries[1].areas[0].tempsMin[1];
-            labelNTmHigh.Text = jsonWeather[1].timeSeries[1].areas[0].tempsMax[1];
-            label02Low.Text = jsonWeather[1].timeSeries[1].areas[0].tempsMin[2];
-            label02High.Text = jsonWeather[1].timeSeries[1].areas[0].tempsMax[2];
-            label03Low.Text = jsonWeather[1].timeSeries[1].areas[0].tempsMin[3];
-            label03High.Text = jsonWeather[1].timeSeries[1].areas[0].tempsMax[3];
-            label04Low.Text = jsonWeather[1].timeSeries[1].areas[0].tempsMin[4];
-            label04High.Text = jsonWeather[1].timeSeries[1].areas[0].tempsMax[4];
-            label05Low.Text = jsonWeather[1].timeSeries[1].areas[0].tempsMin[5];
-            label05High.Text = jsonWeather[1].timeSeries[1].areas[0].tempsMax[5];
-            label06Low.Text = jsonWeather[1].timeSeries[1].areas[0].tempsMin[6];
-            label06High.Text = jsonWeather[1].timeSeries[1].areas[0].tempsMax[6];
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e){
-            var day = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json");
-            var jsonDay = JsonConvert.DeserializeObject<Class1[]>(day);
-
-            label_2.Text = jsonDay[1].timeSeries[0].timeDefines[2].ToString("MM/dd");
-            label_3.Text = jsonDay[1].timeSeries[0].timeDefines[3].ToString("MM/dd");
-            label_4.Text = jsonDay[1].timeSeries[0].timeDefines[4].ToString("MM/dd");
-            label_5.Text = jsonDay[1].timeSeries[0].timeDefines[5].ToString("MM/dd");
-            label_6.Text = jsonDay[1].timeSeries[0].timeDefines[6].ToString("MM/dd");
-
-            cbRegion.SelectedItem = "東京都";
-            getWeather();
         }
 
         private void btChange_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2(this);
-            form2.Show();
-        }
-
-        private void labelNTmLow_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label03Low_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label04Low_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label02Low_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label05Low_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelTmLow_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label06Low_Click(object sender, EventArgs e)
-        {
-
+            Form3 form3 = new Form3();
+            form3.Show();
         }
     }
 }
