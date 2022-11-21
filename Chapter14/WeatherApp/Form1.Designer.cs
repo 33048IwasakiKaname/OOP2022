@@ -108,7 +108,7 @@ namespace WeatherApp {
             this.tbWeatherInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tbWeatherInfo.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.tbWeatherInfo.ForeColor = System.Drawing.Color.White;
-            this.tbWeatherInfo.Location = new System.Drawing.Point(227, 335);
+            this.tbWeatherInfo.Location = new System.Drawing.Point(245, 335);
             this.tbWeatherInfo.Multiline = true;
             this.tbWeatherInfo.Name = "tbWeatherInfo";
             this.tbWeatherInfo.Size = new System.Drawing.Size(548, 224);
