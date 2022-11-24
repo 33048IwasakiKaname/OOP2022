@@ -131,7 +131,7 @@ namespace WeatherApp {
             labelReportTime.Text = json.reportDatetime.ToString();
             labelWeatherToday.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[0];
             labelWeatherTomorrow.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[1];
-            labelWeatherAfterTomorrow.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[2];
+            //labelWeatherAfterTomorrow.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[2];
             labelWindToday.Text = jsonWeather[0].timeSeries[0].areas[0].winds[0];
     
             tbWeatherInfo.Text = json.text;
@@ -162,6 +162,7 @@ namespace WeatherApp {
             var day = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json");
             var jsonDay = JsonConvert.DeserializeObject<Class1[]>(day);
 
+            label_1.Text = jsonDay[1].timeSeries[0].timeDefines[1].ToString("MM/dd");
             label_2.Text = jsonDay[1].timeSeries[0].timeDefines[2].ToString("MM/dd");
             label_3.Text = jsonDay[1].timeSeries[0].timeDefines[3].ToString("MM/dd");
             label_4.Text = jsonDay[1].timeSeries[0].timeDefines[4].ToString("MM/dd");
@@ -176,41 +177,6 @@ namespace WeatherApp {
         {
             Form2 form2 = new Form2(this);
             form2.Show();
-        }
-
-        private void labelNTmLow_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label03Low_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label04Low_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label02Low_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label05Low_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelTmLow_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label06Low_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
