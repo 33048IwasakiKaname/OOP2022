@@ -57,7 +57,7 @@ namespace WeatherApp
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "北海道"});
+            "北海道(札幌周辺)"});
             this.comboBox1.Location = new System.Drawing.Point(499, 93);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(97, 20);
@@ -195,7 +195,7 @@ namespace WeatherApp
             // 
             this.comboBox10.FormattingEnabled = true;
             this.comboBox10.Items.AddRange(new object[] {
-            "沖縄"});
+            "沖縄本島"});
             this.comboBox10.Location = new System.Drawing.Point(184, 265);
             this.comboBox10.Name = "comboBox10";
             this.comboBox10.Size = new System.Drawing.Size(97, 20);
@@ -234,7 +234,7 @@ namespace WeatherApp
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.pbJapan);
             this.Name = "Form2";
-            this.Text = "Form2";
+            this.Text = "日本地図表記";
             this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbJapan)).EndInit();
             this.ResumeLayout(false);

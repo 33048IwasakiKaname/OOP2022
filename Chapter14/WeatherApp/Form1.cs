@@ -74,7 +74,14 @@ namespace WeatherApp {
         }
 
         private void btWeatherGet_Click(object sender, EventArgs e) {
-            getWeather();
+            try{
+                getWeather();
+            }
+            catch (WebException ex){
+                MessageBox.Show("error：" + ex);
+                Application.Exit();
+            }
+            
         }
 
         //マップコード取得
@@ -100,6 +107,12 @@ namespace WeatherApp {
             //天気コード取得
             var weather = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/forecast/" + num + ".json");
             var jsonWeather = JsonConvert.DeserializeObject<Class1[]>(weather);
+
+            var weatherCodeToday = jsonWeather[1].timeSeries[0].areas[0].weatherCodes[0];
+            weatherPb.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCodeToday + ".png");
+
+            var weatherCodeTomorrow = jsonWeather[1].timeSeries[0].areas[0].weatherCodes[1];
+            weatherPbTomorrow.ImageLocation = ("https://www.jma.go.jp/bosai/forecast/img/" + weatherCodeTomorrow + ".png");
 
             //明後日
             var weatherCodeAfTomorrow = jsonWeather[1].timeSeries[0].areas[0].weatherCodes[2];
@@ -159,18 +172,27 @@ namespace WeatherApp {
         }
 
         private void Form1_Load(object sender, EventArgs e){
-            var day = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json");
-            var jsonDay = JsonConvert.DeserializeObject<Class1[]>(day);
+            try
+            {
+                var day = wc.DownloadString("https://www.jma.go.jp/bosai/forecast/data/forecast/130000.json");
+                var jsonDay = JsonConvert.DeserializeObject<Class1[]>(day);
 
-            label_1.Text = jsonDay[1].timeSeries[0].timeDefines[1].ToString("MM/dd");
-            label_2.Text = jsonDay[1].timeSeries[0].timeDefines[2].ToString("MM/dd");
-            label_3.Text = jsonDay[1].timeSeries[0].timeDefines[3].ToString("MM/dd");
-            label_4.Text = jsonDay[1].timeSeries[0].timeDefines[4].ToString("MM/dd");
-            label_5.Text = jsonDay[1].timeSeries[0].timeDefines[5].ToString("MM/dd");
-            label_6.Text = jsonDay[1].timeSeries[0].timeDefines[6].ToString("MM/dd");
+                label_1.Text = jsonDay[1].timeSeries[0].timeDefines[1].ToString("MM/dd");
+                label_2.Text = jsonDay[1].timeSeries[0].timeDefines[2].ToString("MM/dd");
+                label_3.Text = jsonDay[1].timeSeries[0].timeDefines[3].ToString("MM/dd");
+                label_4.Text = jsonDay[1].timeSeries[0].timeDefines[4].ToString("MM/dd");
+                label_5.Text = jsonDay[1].timeSeries[0].timeDefines[5].ToString("MM/dd");
+                label_6.Text = jsonDay[1].timeSeries[0].timeDefines[6].ToString("MM/dd");
 
-            cbRegion.SelectedItem = "東京都";
-            getWeather();
+                cbRegion.SelectedItem = "東京都";
+                getWeather();
+            }
+            catch (WebException ex)
+            {
+                MessageBox.Show("error：" + ex);
+                Application.Exit();
+            }
+            
         }
 
         private void btChange_Click(object sender, EventArgs e)

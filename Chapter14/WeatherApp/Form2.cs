@@ -38,6 +38,7 @@ namespace WeatherApp
             fm1_comboBox.SelectedItem = item;
 
             this.Close();
+            
         }
     }
 }
