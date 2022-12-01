@@ -144,7 +144,6 @@ namespace WeatherApp {
             labelReportTime.Text = json.reportDatetime.ToString();
             labelWeatherToday.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[0];
             labelWeatherTomorrow.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[1];
-            //labelWeatherAfterTomorrow.Text = jsonWeather[0].timeSeries[0].areas[0].weathers[2];
             labelWindToday.Text = jsonWeather[0].timeSeries[0].areas[0].winds[0];
     
             tbWeatherInfo.Text = json.text;
